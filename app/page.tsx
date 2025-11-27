@@ -1,65 +1,340 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+import React, { useState } from 'react';
+import { Download, Github, Linkedin, Mail, TrendingUp, Code, Briefcase, User } from 'lucide-react';
+import Image from "next/image";
+import Link from 'next/link';
+
+const Portfolio = () => {
+  const [currentPage, setCurrentPage] = useState('home');
+
+  const downloadResume = () => {
+    // In production, replace with your actual resume file
+    const link = document.createElement('a');
+    link.href = '/resume.pdf'; // Place your resume.pdf in the public folder
+    link.download = 'Your_Name_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const NavBar = () => (
+    <nav className="bg-slate-900 text-white sticky top-0 z-50 shadow-lg">
+      <div className="max-w-6xl mx-auto px-4 py-4">
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+            Alex Kociubinski
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+          <div className="flex gap-6">
+            <button
+              onClick={() => setCurrentPage('home')}
+              className={`hover:text-blue-400 transition ${currentPage === 'home' ? 'text-blue-400' : ''}`}
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              Home
+            </button>
+            <button
+              onClick={() => setCurrentPage('projects')}
+              className={`hover:text-blue-400 transition ${currentPage === 'projects' ? 'text-blue-400' : ''}`}
             >
-              Learning
-            </a>{" "}
-            center.
+              Projects
+            </button>
+            <button
+              onClick={() => setCurrentPage('trading')}
+              className={`hover:text-blue-400 transition ${currentPage === 'trading' ? 'text-blue-400' : ''}`}
+            >
+              Trading
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+
+  const HomePage = () => (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      <div className="max-w-6xl mx-auto px-4 py-16">
+        {/* Hero Section */}
+        <div className="text-center mb-20">
+          <div className="w-40 h-40 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 mx-auto mb-6 flex items-center justify-center">
+            <User size={80} className="text-white" />
+          </div>
+          <h2 className="text-5xl font-bold text-white mb-4">
+            Hi, I'm <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Alex Kociubinski</span>
+          </h2>
+          <p className="text-xl text-gray-300 mb-8">
+            Computer Science & Math Dual Major | University of Missouri
+          </p>
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex gap-4 justify-center">
+              <a href="https://github.com/alexkociubinski" target="_blank" rel="noopener noreferrer"
+                className="bg-slate-700 hover:bg-slate-600 text-white p-3 rounded-full transition">
+                <Github size={24} />
+              </a>
+              <a href="https://linkedin.com/in/alex-kociubinski" target="_blank" rel="noopener noreferrer"
+                className="bg-slate-700 hover:bg-slate-600 text-white p-3 rounded-full transition">
+                <Linkedin size={24} />
+              </a>
+              <a href="mailto:ak44z@umsystem.edu"
+                className="bg-slate-700 hover:bg-slate-600 text-white p-3 rounded-full transition">
+                <Mail size={24} />
+              </a>
+            </div>
+            <button
+              onClick={downloadResume}
+              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition font-semibold"
+            >
+              <Download size={20} />
+              Download Resume
+            </button>
+          </div>
+        </div>
+
+        {/* About Section */}
+        <div className="bg-slate-800 rounded-2xl p-8 mb-12 shadow-xl">
+          <h3 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+            <User className="text-blue-400" />
+            About Me
+          </h3>
+          <p className="text-gray-300 text-lg leading-relaxed mb-4">
+            I'm a developer and student interested in quantitative finance and algorithmic trading, click Trading to view how my strategies are doing.
+            I like working on projects that mix data and strategy, and help people.
+            At Mizzou, I am part of the TigerQuant and Mizzou Computing Association (MCA) student organizations.
+          </p>
+          <p className="text-gray-300 text-lg leading-relaxed">
+            Outside of coding, I spend my time working out, running with the Mizzou Club Running Team, doing marathons, and watching sports, especially football and soccer.
+            I am a Seattle Seahawks and an Arsenal Fan, unfortunatly.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* Skills Section */}
+        <div className="grid md:grid-cols-3 gap-6 mb-12">
+          <div className="bg-slate-800 rounded-xl p-6 shadow-xl hover:shadow-2xl transition">
+            <Code className="text-blue-400 mb-4" size={32} />
+            <h4 className="text-xl font-bold text-white mb-3">Development</h4>
+            <p className="text-gray-400">Python, C, Flutter, Java, Next.js</p>
+          </div>
+          <div className="bg-slate-800 rounded-xl p-6 shadow-xl hover:shadow-2xl transition">
+            <TrendingUp className="text-green-400 mb-4" size={32} />
+            <h4 className="text-xl font-bold text-white mb-3">Trading</h4>
+            <p className="text-gray-400">Quantitative Analysis, Algorithm Development, Risk Management</p>
+          </div>
+          <div className="bg-slate-800 rounded-xl p-6 shadow-xl hover:shadow-2xl transition">
+            <Briefcase className="text-purple-400 mb-4" size={32} />
+            <h4 className="text-xl font-bold text-white mb-3">Experience</h4>
+            <p className="text-gray-400">Full-Stack Projects, Data Science, Financial Modeling</p>
+          </div>
         </div>
-      </main>
+
+        {/* Quick Links */}
+        <div className="text-center">
+          <h3 className="text-2xl font-bold text-white mb-6">Explore More</h3>
+          <div className="flex gap-4 justify-center">
+            <button
+              onClick={() => setCurrentPage('projects')}
+              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition"
+            >
+              View Projects
+            </button>
+            <button
+              onClick={() => setCurrentPage('trading')}
+              className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-semibold transition"
+            >
+              Trading Dashboard
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
-}
+
+  const ProjectsPage = () => (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      <div className="max-w-6xl mx-auto px-4 py-16">
+        <h2 className="text-4xl font-bold text-white mb-12 text-center">My Projects</h2>
+
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Project 1 */}
+          <div className="bg-slate-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition">
+            <div className="h-48 relative">
+              <Image
+                src="/arsenal.png"
+                alt="Space Ship Battle"
+                fill
+                className="object-cover object-[70%_60%]"
+              />
+            </div>
+            <div className="p-6">
+              <h3 className="text-2xl font-bold text-white mb-3">Garmin Controled Arsenal LED Sign</h3>
+              <p className="text-gray-400 mb-4">
+                An integraded smart home system that allows the control of an Arsenal LED Sign with a Garmin Fenix 5 watch using virtual machines and Home Assistant.
+              </p>
+              <div className="flex gap-2 flex-wrap mb-4">
+                <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm">Nabu Casa</span>
+                <span className="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm">UTM Virtual Machine</span>
+                <span className="bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full text-sm">Home Assistant Webhooks</span>
+              </div>
+              <div className="flex gap-3">
+                <Link href="/projects/arsenal-led" className="text-blue-400 hover:text-blue-300 transition">Explore Project →</Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Project 2 */}
+          <div className="bg-slate-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition">
+            <div className="h-48 relative">
+              <Image
+                src="/spaceShipBattle.png"
+                alt="Space Ship Battle"
+                fill
+                className="object-cover object-[70%_50%]"
+              />
+            </div>
+
+            <div className="p-6">
+              <h3 className="text-2xl font-bold text-white mb-3">Space Ship Battle</h3>
+              <p className="text-gray-400 mb-4">
+                A command line space ship battle game written in C, using pointer arithmetic,
+                inspired by the board game Battleship. Players take turns playing against
+                a computer with a targeted shooting strategy.
+              </p>
+
+              <div className="flex gap-2 flex-wrap mb-4">
+                <span className="bg-yellow-500/20 text-yellow-400 px-3 py-1 rounded-full text-sm">C</span>
+              </div>
+
+              <div className="flex gap-3">
+                <Link href="/projects/spaceship-battle" className="text-blue-400 hover:text-blue-300 transition">Live Demo →</Link>
+                <a href="https://github.com/alexkociubinski/TigerHacks-Fall-2025-Space-Ship-Battle-"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-gray-300 transition">GitHub →</a>
+              </div>
+            </div>
+          </div>
+
+
+          {/* Project 3 */}
+          <div className="bg-slate-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition">
+            <div className="h-48 relative">
+              <Image
+                src="/arsenal.png"
+                alt="Space Ship Battle"
+                fill
+                className="object-cover object-[70%_60%]"
+              />
+            </div>
+            <div className="p-6">
+              <h3 className="text-2xl font-bold text-white mb-3">Monte Carlo Superconductivity Undergraduate Research</h3>
+              <p className="text-gray-400 mb-4">
+                An integraded smart home system that allows the control of an Arsenal LED Sign with a Garmin Fenix 5 watch using virtual machines and Home Assistant.
+              </p>
+              <div className="flex gap-2 flex-wrap mb-4">
+                <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm">Nabu Casa</span>
+                <span className="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm">UTM Virtual Machine</span>
+                <span className="bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full text-sm">Home Assistant Webhooks</span>
+              </div>
+              <div className="flex gap-3">
+                <Link href="/projects/superconductivity" className="text-blue-400 hover:text-blue-300 transition">Explore Project →</Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        {/* Video Project Example */}
+        <div className="bg-slate-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition md:col-span-2">
+          <div className="aspect-video bg-black">
+            <div className="w-full h-full flex items-center justify-center text-gray-500">
+              {/* Replace with: <video controls className="w-full h-full"><source src="/demo.mp4" type="video/mp4" /></video> */}
+              <p>Video Demo Placeholder (Add video file to public folder)</p>
+            </div>
+          </div>
+          <div className="p-6">
+            <h3 className="text-2xl font-bold text-white mb-3">Video Demo Project</h3>
+            <p className="text-gray-400">
+              A project with a video demonstration showing the application in action.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const TradingPage = () => (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      <div className="max-w-6xl mx-auto px-4 py-16">
+        <h2 className="text-4xl font-bold text-white mb-4 text-center">Trading Strategies</h2>
+        <p className="text-gray-400 text-center mb-12">Real-time performance metrics coming soon</p>
+
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          <div className="bg-slate-800 rounded-xl p-6 shadow-xl">
+            <h3 className="text-xl font-bold text-white mb-4">Strategy 1: Momentum</h3>
+            <div className="space-y-3">
+              <div className="flex justify-between text-gray-300">
+                <span>Total Return:</span>
+                <span className="text-green-400 font-semibold">+24.5%</span>
+              </div>
+              <div className="flex justify-between text-gray-300">
+                <span>Sharpe Ratio:</span>
+                <span className="font-semibold">1.8</span>
+              </div>
+              <div className="flex justify-between text-gray-300">
+                <span>Max Drawdown:</span>
+                <span className="text-red-400 font-semibold">-12.3%</span>
+              </div>
+            </div>
+            <p className="text-gray-400 mt-4 text-sm">
+              Placeholder metrics. Connect to your trading API for live data.
+            </p>
+          </div>
+
+          <div className="bg-slate-800 rounded-xl p-6 shadow-xl">
+            <h3 className="text-xl font-bold text-white mb-4">Strategy 2: Mean Reversion</h3>
+            <div className="space-y-3">
+              <div className="flex justify-between text-gray-300">
+                <span>Total Return:</span>
+                <span className="text-green-400ls  font-semibold">+18.2%</span>
+              </div>
+              <div className="flex justify-between text-gray-300">
+                <span>Sharpe Ratio:</span>
+                <span className="font-semibold">1.5</span>
+              </div>
+              <div className="flex justify-between text-gray-300">
+                <span>Max Drawdown:</span>
+                <span className="text-red-400 font-semibold">-8.7%</span>
+              </div>
+            </div>
+            <p className="text-gray-400 mt-4 text-sm">
+              Placeholder metrics. Connect to your trading API for live data.
+            </p>
+          </div>
+        </div>
+
+        <div className="bg-slate-800 rounded-2xl p-8 shadow-xl">
+          <h3 className="text-2xl font-bold text-white mb-4">Performance Chart</h3>
+          <div className="aspect-video bg-slate-900 rounded-lg flex items-center justify-center">
+            <p className="text-gray-500">
+              Chart visualization area - integrate with recharts or your preferred charting library
+            </p>
+          </div>
+          <p className="text-gray-400 mt-4">
+            This section is ready for you to integrate real-time data from your trading platform.
+            You can use WebSocket connections or API polling to update metrics live.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-slate-900">
+      <NavBar />
+      {currentPage === 'home' && <HomePage />}
+      {currentPage === 'projects' && <ProjectsPage />}
+      {currentPage === 'trading' && <TradingPage />}
+    </div>
+  );
+};
+
+export default Portfolio;
