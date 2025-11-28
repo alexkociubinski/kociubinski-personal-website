@@ -26,6 +26,7 @@ export default function SpaceShipBattlePage() {
     const [alienTurnPending, setAlienTurnPending] = useState(false);
 
     const bottomRef = useRef<HTMLDivElement>(null);
+    const initialized = useRef(false);
 
     // Scroll to bottom on new output
     useEffect(() => {
@@ -40,9 +41,10 @@ export default function SpaceShipBattlePage() {
 
     // Initialize game with intro
     useEffect(() => {
-        addOutput('\n\x1b[1;36m╔════════════════════════════════════════════════════════════╗\x1b[0m');
+        if (initialized.current) return;
+        initialized.current = true;
+
         addOutput('\x1b[1;36m║\x1b[1;97m              SPACE DEFENSE: OPERATION XYLON                \x1b[1;36m║\x1b[0m');
-        addOutput('\x1b[1;36m╚════════════════════════════════════════════════════════════╝\x1b[0m\n');
         addOutput('\x1b[0;37mThe year is 4025, humanity has colonized the outer rim of the Milky Way Galaxy.\x1b[0m');
         addOutput('\x1b[0;37mPlanet Xylon, known for their rare minerals, has become the target of an \x1b[1;31mAlien Attack\x1b[0;37m.\x1b[0m\n');
         addOutput('  \x1b[1;33mYOUR MISSION:\x1b[0m');
@@ -52,9 +54,7 @@ export default function SpaceShipBattlePage() {
     }, []);
 
     const startBriefing = () => {
-        addOutput('\n\n\x1b[1;36m╔════════════════════════════════════════════════════════════╗\x1b[0m');
         addOutput('\x1b[1;36m║\x1b[1;97m                         BRIEFING                           \x1b[1;36m║\x1b[0m');
-        addOutput('\x1b[1;36m╚════════════════════════════════════════════════════════════╝\x1b[0m');
         addOutput('\x1b[1;33mRULES OF ENGAGEMENT:\x1b[0m');
         addOutput('\x1b[0;37m  • Take turns firing at enemy coordinates\x1b[0m');
         addOutput('\x1b[0;37m  • Direct hits grant another shot immediately\x1b[0m');
@@ -71,13 +71,9 @@ export default function SpaceShipBattlePage() {
 
         addOutput('\n\x1b[1;32mDeploying your defensive fleet...\x1b[0m');
         addOutput('\x1b[1;31mEnemy forces detected and locked...\x1b[0m');
-        addOutput('\n\x1b[1;34m═══════════════════════════════════════════════════════════\x1b[0m');
         addOutput('\x1b[1;33m               YOUR TARGETING GRID \x1b[0m');
-        addOutput('\x1b[1;34m═══════════════════════════════════════════════════════════\x1b[0m');
         addOutput(formatGrid(newGameState.shotMap, false));
-        addOutput('\n\x1b[1;34m═══════════════════════════════════════════════════════════\x1b[0m');
         addOutput('\x1b[1;33m               YOUR DEFENSIVE GRID \x1b[0m');
-        addOutput('\x1b[1;34m═══════════════════════════════════════════════════════════\x1b[0m');
         addOutput(formatGrid(newGameState.userMap, true));
         addOutput('\n\n\x1b[1;31m⚔ \x1b[1;97mTHE BATTLE BEGINS!\x1b[1;31m ⚔\x1b[0m\n');
         addOutput('\x1b[1;32m Your turn! Enter target coordinates (Column A-H, Row 1-8):\x1b[0m');
@@ -111,22 +107,16 @@ export default function SpaceShipBattlePage() {
         addOutput(result.message);
 
         // Update grids
-        addOutput('\n\x1b[1;34m═══════════════════════════════════════════════════════════\x1b[0m');
         addOutput('\x1b[1;33m                     YOUR TARGETING GRID \x1b[0m');
-        addOutput('\x1b[1;34m═══════════════════════════════════════════════════════════\x1b[0m');
         addOutput(formatGrid(gameState.shotMap, false));
         addOutput(`\x1b[1;31mEnemy vessels remaining: ${gameState.alienShips}/14\x1b[0m`);
 
-        addOutput('\n\x1b[1;34m═══════════════════════════════════════════════════════════\x1b[0m');
         addOutput('\x1b[1;33m                     YOUR DEFENSIVE GRID \x1b[0m');
-        addOutput('\x1b[1;34m═══════════════════════════════════════════════════════════\x1b[0m');
         addOutput(formatGrid(gameState.userMap, true));
         addOutput(`\x1b[1;32mYour vessels remaining: ${gameState.userShips}/14\x1b[0m`);
 
         if (result.gameOver && result.winner === 'user') {
-            addOutput('\n\n\x1b[1;32m╔════════════════════════════════════════════════════════════╗\x1b[0m');
             addOutput('\x1b[1;32m║\x1b[1;97m                    MISSION COMPLETE!                       \x1b[1;32m║\x1b[0m');
-            addOutput('\x1b[1;32m╚════════════════════════════════════════════════════════════╝\x1b[0m\n');
             addOutput('\x1b[1;32mAll enemy forces have been neutralized!\x1b[0m');
             addOutput('\x1b[1;32mPlanet Xylon is safe. The citizens celebrate your victory!\x1b[0m\n');
             addOutput(getGameStats(gameState));
@@ -164,22 +154,16 @@ export default function SpaceShipBattlePage() {
             const alienResult = processAlienShot(gameState);
             addOutput(alienResult.message);
 
-            addOutput('\n\x1b[1;34m═══════════════════════════════════════════════════════════\x1b[0m');
             addOutput('\x1b[1;33m                 YOUR TARGETING GRID \x1b[0m');
-            addOutput('\x1b[1;34m═══════════════════════════════════════════════════════════\x1b[0m');
             addOutput(formatGrid(gameState.shotMap, false));
             addOutput(`\x1b[1;31mEnemy vessels remaining: ${gameState.alienShips}/14\x1b[0m`);
 
-            addOutput('\n\x1b[1;34m═══════════════════════════════════════════════════════════\x1b[0m');
             addOutput('\x1b[1;33m                   YOUR DEFENSIVE GRID  \x1b[0m');
-            addOutput('\x1b[1;34m═══════════════════════════════════════════════════════════\x1b[0m');
             addOutput(formatGrid(gameState.userMap, true));
             addOutput(`\x1b[1;32mYour vessels remaining: ${gameState.userShips}/14\x1b[0m`);
 
             if (alienResult.gameOver && alienResult.winner === 'alien') {
-                addOutput('\n\n\x1b[1;31m╔════════════════════════════════════════════════════════════╗\x1b[0m');
                 addOutput('\x1b[1;31m║\x1b[1;97m                   MISSION FAILED                           \x1b[1;31m║\x1b[0m');
-                addOutput('\x1b[1;31m╚════════════════════════════════════════════════════════════╝\x1b[0m\n');
                 addOutput('\x1b[1;31mAll defensive vessels destroyed...\x1b[0m');
                 addOutput('\x1b[1;31mThe alien forces have invaded Planet Xylon.\x1b[0m');
                 addOutput("\x1b[1;31mHumanity's foothold in this sector has been lost.\x1b[0m\n");

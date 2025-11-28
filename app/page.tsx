@@ -62,7 +62,7 @@ const Portfolio = () => {
             Hi, I'm <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Alex Kociubinski</span>
           </h2>
           <p className="text-xl text-gray-300 mb-8">
-            Computer Science & Math Dual Major | University of Missouri
+            Computer Science & Mathematics Dual Major | University of Missouri
           </p>
           <div className="flex flex-col items-center gap-4">
             <div className="flex gap-4 justify-center">
