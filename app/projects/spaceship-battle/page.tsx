@@ -224,7 +224,7 @@ export default function SpaceShipBattlePage() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white p-4 md:p-8 font-mono">
             <div className="max-w-4xl mx-auto">
-                <Link href="/" className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 mb-8 transition font-sans">
+                <Link href="/?view=projects" className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 mb-8 transition font-sans">
                     <ArrowLeft size={20} />
                     Back to Portfolio
                 </Link>

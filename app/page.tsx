@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Download, Mail, TrendingUp, Code, Briefcase, User, Check } from 'lucide-react';
 import Image from "next/image";
 import Link from 'next/link';
@@ -23,6 +23,15 @@ const LinkedinIcon = ({ size = 24 }: { size?: number }) => (
 
 const Portfolio = () => {
   const [currentPage, setCurrentPage] = useState('home');
+
+  // Check URL parameters on mount to set initial page
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const view = params.get('view');
+    if (view === 'projects' || view === 'trading') {
+      setCurrentPage(view);
+    }
+  }, []);
 
   const downloadResume = () => {
     // In production, replace with your actual resume file
@@ -90,10 +99,13 @@ const Portfolio = () => {
                 className="bg-slate-700 hover:bg-slate-600 text-white p-3 rounded-full transition">
                 <LinkedinIcon size={24} />
               </a>
-              <a href="mailto:ak44z@umsystem.edu"
-                className="bg-slate-700 hover:bg-slate-600 text-white p-3 rounded-full transition">
+              <button
+                onClick={() => window.location.href = 'mailto:ak44z@umsystem.edu'}
+                className="bg-slate-700 hover:bg-slate-600 text-white p-3 rounded-full transition"
+                aria-label="Send email to ak44z@umsystem.edu"
+              >
                 <Mail size={24} />
-              </a>
+              </button>
             </div>
             <button
               onClick={downloadResume}
