@@ -28,7 +28,7 @@ export default function SuperconductivityPage() {
                 <div className="bg-slate-800 rounded-2xl p-8 shadow-xl">
                     <h2 className="text-2xl font-bold mb-4">Project Description</h2>
                     <p className="text-gray-300 text-lg leading-relaxed mb-6">
-                        Research into superconductivity using Monte Carlo simulations. This project explores the behavior of materials at low temperatures and the conditions required for superconductivity.
+                        Research into superconductivity using Monte Carlo simulations. This project explores the behavior of materials at different temperatures and the conditions required for superconductivity.
                     </p>
 
                     <h3 className="text-xl font-bold mb-3">Technologies & Methods</h3>
