@@ -83,8 +83,14 @@ const Portfolio = () => {
       <div className="max-w-6xl mx-auto px-4 py-16">
         {/* Hero Section */}
         <div className="text-center mb-20">
-          <div className="w-40 h-40 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 mx-auto mb-6 flex items-center justify-center">
-            <User size={80} className="text-white" />
+          <div className="relative w-40 h-40 mx-auto mb-6 rounded-full overflow-hidden shadow-2xl border-4 border-slate-700/50">
+            <Image
+              src="/headshot.jpeg"
+              alt="Alex Kociubinski"
+              fill
+              className="object-cover"
+              priority
+            />
           </div>
           <h2 className="text-5xl font-bold text-white mb-4">
             Hi, I'm <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Alex Kociubinski</span>
