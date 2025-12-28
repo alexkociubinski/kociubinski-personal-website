@@ -28,7 +28,10 @@ const Portfolio = () => {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const view = params.get('view');
-    if (view === 'projects' || view === 'trading') {
+    /* if (view === 'projects' || view === 'trading') {
+      setCurrentPage(view);
+    } */
+    if (view === 'projects') {
       setCurrentPage(view);
     }
   }, []);
@@ -63,12 +66,12 @@ const Portfolio = () => {
             >
               Projects
             </button>
-            <button
+            {/* <button
               onClick={() => setCurrentPage('trading')}
               className={`hover:text-blue-400 transition ${currentPage === 'trading' ? 'text-blue-400' : ''}`}
             >
               Trading
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
@@ -124,7 +127,7 @@ const Portfolio = () => {
             About Me
           </h3>
           <p className="text-gray-300 text-lg leading-relaxed mb-4">
-            I'm a developer and student interested in quantitative finance and algorithmic trading, click Trading to view how my strategies are doing.
+            I'm a developer and student interested in quantitative finance and algorithmic trading.
             I like working on projects that mix data and strategy, and help people.
             At Mizzou, I am part of the TigerQuant and Mizzou Computing Association (MCA) student organizations.
           </p>
@@ -163,12 +166,12 @@ const Portfolio = () => {
             >
               View Projects
             </button>
-            <button
+            {/* <button
               onClick={() => setCurrentPage('trading')}
               className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-semibold transition"
             >
               Trading Dashboard
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
@@ -266,29 +269,11 @@ const Portfolio = () => {
             </div>
           </div>
         </div>
-
-
-
-        {/* Video Project Example */}
-        <div className="bg-slate-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition md:col-span-2">
-          <div className="aspect-video bg-black">
-            <div className="w-full h-full flex items-center justify-center text-gray-500">
-              {/* Replace with: <video controls className="w-full h-full"><source src="/demo.mp4" type="video/mp4" /></video> */}
-              <p>Video Demo Placeholder (Add video file to public folder)</p>
-            </div>
-          </div>
-          <div className="p-6">
-            <h3 className="text-2xl font-bold text-white mb-3">Video Demo Project</h3>
-            <p className="text-gray-400">
-              A project with a video demonstration showing the application in action.
-            </p>
-          </div>
-        </div>
       </div>
     </div>
   );
 
-  const TradingPage = () => (
+  /* const TradingPage = () => (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       <div className="max-w-6xl mx-auto px-4 py-16">
         <h2 className="text-4xl font-bold text-white mb-4 text-center">Trading Strategies</h2>
@@ -336,30 +321,30 @@ const Portfolio = () => {
               Placeholder metrics. Connect to your trading API for live data.
             </p>
           </div>
-        </div>
+       </div>
 
-        <div className="bg-slate-800 rounded-2xl p-8 shadow-xl">
-          <h3 className="text-2xl font-bold text-white mb-4">Performance Chart</h3>
-          <div className="aspect-video bg-slate-900 rounded-lg flex items-center justify-center">
-            <p className="text-gray-500">
-              Chart visualization area - integrate with recharts or your preferred charting library
-            </p>
-          </div>
-          <p className="text-gray-400 mt-4">
-            This section is ready for you to integrate real-time data from your trading platform.
-            You can use WebSocket connections or API polling to update metrics live.
-          </p>
-        </div>
-      </div>
+  <div className="bg-slate-800 rounded-2xl p-8 shadow-xl">
+    <h3 className="text-2xl font-bold text-white mb-4">Performance Chart</h3>
+    <div className="aspect-video bg-slate-900 rounded-lg flex items-center justify-center">
+      <p className="text-gray-500">
+        Chart visualization area - integrate with recharts or your preferred charting library
+      </p>
     </div>
-  );
+    <p className="text-gray-400 mt-4">
+      This section is ready for you to integrate real-time data from your trading platform.
+      You can use WebSocket connections or API polling to update metrics live.
+    </p>
+  </div>
+     </div>
+  </div>
+  ); */
 
   return (
     <div className="min-h-screen bg-slate-900">
       <NavBar />
       {currentPage === 'home' && <HomePage />}
       {currentPage === 'projects' && <ProjectsPage />}
-      {currentPage === 'trading' && <TradingPage />}
+      {/* {currentPage === 'trading' && <TradingPage />} */}
     </div>
   );
 };
