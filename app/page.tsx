@@ -36,6 +36,23 @@ const Portfolio = () => {
     }
   }, []);
 
+  // Scroll to top when page changes
+  useEffect(() => {
+    const scrollToTop = () => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'instant' as ScrollBehavior
+      });
+    };
+
+    // Execute immediately and after a short delay to ensure browser doesn't override
+    scrollToTop();
+    const timeoutId = setTimeout(scrollToTop, 10);
+
+    return () => clearTimeout(timeoutId);
+  }, [currentPage]);
+
   const downloadResume = () => {
     // In production, replace with your actual resume file
     const link = document.createElement('a');
