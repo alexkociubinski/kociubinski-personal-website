@@ -47,28 +47,28 @@ const Portfolio = () => {
   };
 
   const NavBar = () => (
-    <nav className="bg-slate-900 text-white sticky top-0 z-50 shadow-lg">
+    <nav className="bg-black text-white sticky top-0 z-50 shadow-lg border-b border-neutral-800">
       <div className="max-w-6xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">
             Alex Kociubinski
           </h1>
           <div className="flex gap-6">
             <button
               onClick={() => setCurrentPage('home')}
-              className={`hover:text-blue-400 transition ${currentPage === 'home' ? 'text-blue-400' : ''}`}
+              className={`hover:text-yellow-400 transition ${currentPage === 'home' ? 'text-yellow-400' : ''}`}
             >
               Home
             </button>
             <button
               onClick={() => setCurrentPage('projects')}
-              className={`hover:text-blue-400 transition ${currentPage === 'projects' ? 'text-blue-400' : ''}`}
+              className={`hover:text-yellow-400 transition ${currentPage === 'projects' ? 'text-yellow-400' : ''}`}
             >
               Projects
             </button>
             {/* <button
               onClick={() => setCurrentPage('trading')}
-              className={`hover:text-blue-400 transition ${currentPage === 'trading' ? 'text-blue-400' : ''}`}
+              className={`hover:text-yellow-400 transition ${currentPage === 'trading' ? 'text-yellow-400' : ''}`}
             >
               Trading
             </button> */}
@@ -79,38 +79,38 @@ const Portfolio = () => {
   );
 
   const HomePage = () => (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <div className="min-h-screen bg-black bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-neutral-900 via-black to-black">
       <div className="max-w-6xl mx-auto px-4 py-16">
         {/* Hero Section */}
-        <div className="text-center mb-20">
-          <div className="relative w-40 h-40 mx-auto mb-6 rounded-full overflow-hidden shadow-2xl border-4 border-slate-700/50">
+        <div className="text-center mb-20 animate-fade-in">
+          <div className="relative w-40 h-40 mx-auto mb-6 rounded-full overflow-hidden shadow-2xl border-4 border-neutral-800 hover:scale-105 transition-transform duration-500 hover:border-yellow-500/50 hover:shadow-yellow-500/20 group">
             <Image
               src="/headshot.jpeg"
               alt="Alex Kociubinski"
               fill
-              className="object-cover"
+              className="object-cover group-hover:scale-110 transition-transform duration-500"
               priority
             />
           </div>
-          <h2 className="text-5xl font-bold text-white mb-4">
-            Hi, I'm <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Alex Kociubinski</span>
+          <h2 className="text-5xl font-bold text-white mb-4 animate-slide-up">
+            Hi, I'm <span className="bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">Alex Kociubinski</span>
           </h2>
-          <p className="text-xl text-gray-300 mb-8">
+          <p className="text-xl text-neutral-400 mb-8 animate-slide-up-delay-1">
             Computer Science & Mathematics Dual Major | University of Missouri
           </p>
-          <div className="flex flex-col items-center gap-4">
+          <div className="flex flex-col items-center gap-4 animate-slide-up-delay-2">
             <div className="flex gap-4 justify-center">
               <a href="https://github.com/alexkociubinski" target="_blank" rel="noopener noreferrer"
-                className="bg-slate-700 hover:bg-slate-600 text-white p-3 rounded-full transition">
+                className="bg-neutral-800 hover:bg-neutral-700 text-white p-3 rounded-full transition hover:scale-110 hover:text-yellow-400 border border-neutral-700">
                 <GithubIcon size={24} />
               </a>
               <a href="https://linkedin.com/in/alex-kociubinski" target="_blank" rel="noopener noreferrer"
-                className="bg-slate-700 hover:bg-slate-600 text-white p-3 rounded-full transition">
+                className="bg-neutral-800 hover:bg-neutral-700 text-white p-3 rounded-full transition hover:scale-110 hover:text-yellow-400 border border-neutral-700">
                 <LinkedinIcon size={24} />
               </a>
               <button
                 onClick={() => window.location.href = 'mailto:ak44z@umsystem.edu'}
-                className="bg-slate-700 hover:bg-slate-600 text-white p-3 rounded-full transition"
+                className="bg-neutral-800 hover:bg-neutral-700 text-white p-3 rounded-full transition hover:scale-110 hover:text-yellow-400 border border-neutral-700"
                 aria-label="Send email to ak44z@umsystem.edu"
               >
                 <Mail size={24} />
@@ -118,7 +118,7 @@ const Portfolio = () => {
             </div>
             <button
               onClick={downloadResume}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition font-semibold"
+              className="bg-yellow-500 hover:bg-yellow-400 text-black px-6 py-3 rounded-lg flex items-center gap-2 transition hover:scale-105 active:scale-95 font-bold shadow-lg shadow-yellow-500/20"
             >
               <Download size={20} />
               Download Resume
@@ -127,48 +127,48 @@ const Portfolio = () => {
         </div>
 
         {/* About Section */}
-        <div className="bg-slate-800 rounded-2xl p-8 mb-12 shadow-xl">
+        <div className="bg-neutral-900 rounded-2xl p-8 mb-12 shadow-xl border border-neutral-800 animate-slide-up-delay-1">
           <h3 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
-            <User className="text-blue-400" />
+            <User className="text-yellow-400" />
             About Me
           </h3>
-          <p className="text-gray-300 text-lg leading-relaxed mb-4">
+          <p className="text-neutral-300 text-lg leading-relaxed mb-4">
             I'm a developer and student interested in quantitative finance and algorithmic trading.
             I like working on projects that mix data and strategy, and help people.
             At Mizzou, I am part of the TigerQuant and Mizzou Computing Association (MCA) student organizations.
           </p>
-          <p className="text-gray-300 text-lg leading-relaxed">
+          <p className="text-neutral-300 text-lg leading-relaxed">
             Outside of coding, I spend my time working out, running with the Mizzou Club Running Team, doing marathons, and watching sports, especially football and soccer.
             I am a Seattle Seahawks and an Arsenal Fan, unfortunatly.
           </p>
         </div>
 
         {/* Skills Section */}
-        <div className="grid md:grid-cols-3 gap-6 mb-12">
-          <div className="bg-slate-800 rounded-xl p-6 shadow-xl hover:shadow-2xl transition">
-            <Code className="text-blue-400 mb-4" size={32} />
-            <h4 className="text-xl font-bold text-white mb-3">Development</h4>
-            <p className="text-gray-400">Python, C, Flutter, Java, Next.js</p>
+        <div className="grid md:grid-cols-3 gap-6 mb-12 animate-slide-up-delay-2">
+          <div className="bg-neutral-900 rounded-xl p-6 shadow-xl transition-all duration-300 border border-neutral-800 group hover:border-yellow-500/50 hover:-translate-y-2 hover:shadow-2xl hover:shadow-yellow-500/10">
+            <Code className="text-yellow-400 mb-4 group-hover:scale-110 transition-transform duration-300" size={32} />
+            <h4 className="text-xl font-bold text-white mb-3 group-hover:text-yellow-400 transition">Development</h4>
+            <p className="text-neutral-400">Python, C, Flutter, Java, Next.js</p>
           </div>
-          <div className="bg-slate-800 rounded-xl p-6 shadow-xl hover:shadow-2xl transition">
-            <TrendingUp className="text-green-400 mb-4" size={32} />
-            <h4 className="text-xl font-bold text-white mb-3">Trading</h4>
-            <p className="text-gray-400">Quantitative Analysis, Algorithm Development, Risk Management</p>
+          <div className="bg-neutral-900 rounded-xl p-6 shadow-xl transition-all duration-300 border border-neutral-800 group hover:border-yellow-500/50 hover:-translate-y-2 hover:shadow-2xl hover:shadow-yellow-500/10">
+            <TrendingUp className="text-yellow-400 mb-4 group-hover:scale-110 transition-transform duration-300" size={32} />
+            <h4 className="text-xl font-bold text-white mb-3 group-hover:text-yellow-400 transition">Trading</h4>
+            <p className="text-neutral-400">Quantitative Analysis, Algorithm Development, Risk Management</p>
           </div>
-          <div className="bg-slate-800 rounded-xl p-6 shadow-xl hover:shadow-2xl transition">
-            <Briefcase className="text-purple-400 mb-4" size={32} />
-            <h4 className="text-xl font-bold text-white mb-3">Experience</h4>
-            <p className="text-gray-400">Full-Stack Projects, Data Science, Financial Modeling</p>
+          <div className="bg-neutral-900 rounded-xl p-6 shadow-xl transition-all duration-300 border border-neutral-800 group hover:border-yellow-500/50 hover:-translate-y-2 hover:shadow-2xl hover:shadow-yellow-500/10">
+            <Briefcase className="text-amber-500 mb-4 group-hover:scale-110 transition-transform duration-300" size={32} />
+            <h4 className="text-xl font-bold text-white mb-3 group-hover:text-yellow-400 transition">Experience</h4>
+            <p className="text-neutral-400">Full-Stack Projects, Data Science, Financial Modeling</p>
           </div>
         </div>
 
         {/* Quick Links */}
-        <div className="text-center">
+        <div className="text-center animate-slide-up-delay-2">
           <h3 className="text-2xl font-bold text-white mb-6">Explore More</h3>
           <div className="flex gap-4 justify-center">
             <button
               onClick={() => setCurrentPage('projects')}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition"
+              className="bg-yellow-500 hover:bg-yellow-400 text-black px-6 py-3 rounded-lg font-bold transition hover:scale-105 active:scale-95 shadow-lg shadow-yellow-500/20"
             >
               View Projects
             </button>
@@ -185,89 +185,89 @@ const Portfolio = () => {
   );
 
   const ProjectsPage = () => (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <div className="min-h-screen bg-black">
       <div className="max-w-6xl mx-auto px-4 py-16">
         <h2 className="text-4xl font-bold text-white mb-12 text-center">My Projects</h2>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-8 animate-fade-in-delay">
           {/* Project 1 */}
-          <div className="bg-slate-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition">
-            <div className="h-48 relative">
+          <div className="bg-neutral-900 rounded-2xl overflow-hidden shadow-xl transition-all duration-300 border border-neutral-800 hover:border-yellow-500/50 group hover:-translate-y-2 hover:shadow-2xl hover:shadow-yellow-500/10">
+            <div className="h-48 relative overflow-hidden">
               <Image
                 src="/metropolisalg.png"
                 alt="Metropolis Algorithm"
                 fill
-                className="object-cover object-[70%_60%]"
+                className="object-cover object-[70%_60%] group-hover:scale-105 transition-transform duration-500"
               />
             </div>
             <div className="p-6">
-              <h3 className="text-2xl font-bold text-white mb-3">Monte Carlo Superconductivity Undergraduate Research</h3>
-              <p className="text-gray-400 mb-4">
+              <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-yellow-400 transition">Monte Carlo Superconductivity Undergraduate Research</h3>
+              <p className="text-neutral-400 mb-4">
                 Researched superconductivity through computational modeling using Python and Monte Carlo simulations. Used the Metropolis algorithm to study energy states and behaviors in nature.              </p>
               <div className="flex gap-2 flex-wrap mb-4">
-                <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm">Python</span>
-                <span className="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm">Monte Carlo Simulation</span>
-                <span className="bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full text-sm">Data Analysis</span>
+                <span className="bg-yellow-500/10 text-yellow-400 px-3 py-1 rounded-full text-sm border border-yellow-500/20">Python</span>
+                <span className="bg-amber-500/10 text-amber-400 px-3 py-1 rounded-full text-sm border border-amber-500/20">Monte Carlo Simulation</span>
+                <span className="bg-neutral-700/50 text-neutral-300 px-3 py-1 rounded-full text-sm border border-neutral-700">Data Analysis</span>
               </div>
               <div className="flex gap-3">
-                <Link href="/projects/superconductivity" className="text-blue-400 hover:text-blue-300 transition">Explore Project →</Link>
+                <Link href="/projects/superconductivity" className="text-yellow-400 hover:text-yellow-300 transition font-medium hover:underline underline-offset-4">Explore Project →</Link>
               </div>
             </div>
           </div>
-          <div className="bg-slate-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition">
-            <div className="h-48 relative">
+          <div className="bg-neutral-900 rounded-2xl overflow-hidden shadow-xl transition-all duration-300 border border-neutral-800 hover:border-yellow-500/50 group hover:-translate-y-2 hover:shadow-2xl hover:shadow-yellow-500/10">
+            <div className="h-48 relative overflow-hidden">
               <Image
                 src="/arsenal.png"
                 alt="Space Ship Battle"
                 fill
-                className="object-cover object-[70%_60%]"
+                className="object-cover object-[70%_60%] group-hover:scale-105 transition-transform duration-500"
               />
             </div>
             <div className="p-6">
-              <h3 className="text-2xl font-bold text-white mb-3">Garmin Controled Arsenal LED Sign</h3>
-              <p className="text-gray-400 mb-4">
+              <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-yellow-400 transition">Garmin Controled Arsenal LED Sign</h3>
+              <p className="text-neutral-400 mb-4">
                 An integraded smart home system that allows the control of an Arsenal LED Sign with a Garmin Fenix 5 watch using virtual machines and Home Assistant.
               </p>
               <div className="flex gap-2 flex-wrap mb-4">
-                <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm">Nabu Casa</span>
-                <span className="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm">UTM Virtual Machine</span>
-                <span className="bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full text-sm">Home Assistant Webhooks</span>
+                <span className="bg-yellow-500/10 text-yellow-400 px-3 py-1 rounded-full text-sm border border-yellow-500/20">Nabu Casa</span>
+                <span className="bg-amber-500/10 text-amber-400 px-3 py-1 rounded-full text-sm border border-amber-500/20">UTM Virtual Machine</span>
+                <span className="bg-neutral-700/50 text-neutral-300 px-3 py-1 rounded-full text-sm border border-neutral-700">Home Assistant Webhooks</span>
               </div>
               <div className="flex gap-3">
-                <Link href="/projects/arsenal-led" className="text-blue-400 hover:text-blue-300 transition">Explore Project →</Link>
+                <Link href="/projects/arsenal-led" className="text-yellow-400 hover:text-yellow-300 transition font-medium hover:underline underline-offset-4">Explore Project →</Link>
               </div>
             </div>
           </div>
 
           {/* Project 2 */}
-          <div className="bg-slate-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition">
-            <div className="h-48 relative">
+          <div className="bg-neutral-900 rounded-2xl overflow-hidden shadow-xl transition-all duration-300 border border-neutral-800 hover:border-yellow-500/50 group hover:-translate-y-2 hover:shadow-2xl hover:shadow-yellow-500/10">
+            <div className="h-48 relative overflow-hidden">
               <Image
                 src="/spaceShipBattle.png"
                 alt="Space Ship Battle"
                 fill
-                className="object-cover object-[70%_50%]"
+                className="object-cover object-[70%_50%] group-hover:scale-105 transition-transform duration-500"
               />
             </div>
 
             <div className="p-6">
-              <h3 className="text-2xl font-bold text-white mb-3">Space Ship Battle</h3>
-              <p className="text-gray-400 mb-4">
+              <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-yellow-400 transition">Space Ship Battle</h3>
+              <p className="text-neutral-400 mb-4">
                 A command line space ship battle game written in C, using pointer arithmetic,
                 inspired by the board game Battleship. Players take turns playing against
                 a computer with a targeted shooting strategy.
               </p>
 
               <div className="flex gap-2 flex-wrap mb-4">
-                <span className="bg-yellow-500/20 text-yellow-400 px-3 py-1 rounded-full text-sm">C</span>
+                <span className="bg-yellow-500/10 text-yellow-400 px-3 py-1 rounded-full text-sm border border-yellow-500/20">C</span>
               </div>
 
               <div className="flex gap-3">
-                <Link href="/projects/spaceship-battle" className="text-blue-400 hover:text-blue-300 transition">Live Demo →</Link>
+                <Link href="/projects/spaceship-battle" className="text-yellow-400 hover:text-yellow-300 transition font-medium hover:underline underline-offset-4">Live Demo →</Link>
                 <a href="https://github.com/alexkociubinski/TigerHacks-Fall-2025-Space-Ship-Battle-"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-gray-300 transition">GitHub →</a>
+                  className="text-neutral-400 hover:text-white transition hover:underline underline-offset-4">GitHub →</a>
               </div>
             </div>
           </div>
@@ -345,7 +345,7 @@ const Portfolio = () => {
   ); */
 
   return (
-    <div className="min-h-screen bg-slate-900">
+    <div className="min-h-screen bg-black">
       <NavBar />
       {currentPage === 'home' && <HomePage />}
       {currentPage === 'projects' && <ProjectsPage />}

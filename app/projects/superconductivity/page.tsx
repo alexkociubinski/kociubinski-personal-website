@@ -7,9 +7,9 @@ import { ArrowLeft } from 'lucide-react';
 
 export default function SuperconductivityPage() {
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white p-8">
+        <div className="min-h-screen bg-black text-white p-8">
             <div className="max-w-4xl mx-auto">
-                <Link href="/?view=projects" className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 mb-8 transition">
+                <Link href="/?view=projects" className="inline-flex items-center gap-2 text-yellow-400 hover:text-yellow-300 mb-8 transition font-medium">
                     <ArrowLeft size={20} />
                     Back to Portfolio
                 </Link>
@@ -25,21 +25,21 @@ export default function SuperconductivityPage() {
                     />
                 </div>
 
-                <div className="bg-slate-800 rounded-2xl p-8 shadow-xl">
+                <div className="bg-neutral-900 rounded-2xl p-8 shadow-xl border border-neutral-800">
                     <h2 className="text-2xl font-bold mb-4">Project Description</h2>
-                    <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                    <p className="text-neutral-300 text-lg leading-relaxed mb-6">
                         Research into superconductivity using Monte Carlo simulations. This project explores the behavior of materials at different temperatures and the conditions required for superconductivity.
                     </p>
 
                     <h3 className="text-xl font-bold mb-3">Technologies & Methods</h3>
                     <div className="flex gap-2 flex-wrap mb-8">
-                        <span className="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm">Python</span>
-                        <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm">Monte Carlo Simulation</span>
-                        <span className="bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full text-sm">Data Analysis</span>
+                        <span className="bg-yellow-500/10 text-yellow-400 px-3 py-1 rounded-full text-sm border border-yellow-500/20">Python</span>
+                        <span className="bg-amber-500/10 text-amber-400 px-3 py-1 rounded-full text-sm border border-amber-500/20">Monte Carlo Simulation</span>
+                        <span className="bg-neutral-700/50 text-neutral-300 px-3 py-1 rounded-full text-sm border border-neutral-700">Data Analysis</span>
                     </div>
 
                     <h3 className="text-xl font-bold mb-3">Research Goals</h3>
-                    <ul className="list-disc list-inside text-gray-300 space-y-2">
+                    <ul className="list-disc list-inside text-neutral-300 space-y-2">
                         <li>Simulate particle interactions at different temperatures</li>
                         <li>Analyze phase transitions</li>
                         <li>Optimize simulation algorithms for performance</li>
