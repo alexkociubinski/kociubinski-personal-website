@@ -194,6 +194,29 @@ const Portfolio = () => {
           <div className="bg-slate-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition">
             <div className="h-48 relative">
               <Image
+                src="/metropolisalg.png"
+                alt="Metropolis Algorithm"
+                fill
+                className="object-cover object-[70%_60%]"
+              />
+            </div>
+            <div className="p-6">
+              <h3 className="text-2xl font-bold text-white mb-3">Monte Carlo Superconductivity Undergraduate Research</h3>
+              <p className="text-gray-400 mb-4">
+                Researched superconductivity through computational modeling using Python and Monte Carlo simulations. Used the Metropolis algorithm to study energy states and behaviors in nature.              </p>
+              <div className="flex gap-2 flex-wrap mb-4">
+                <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm">Python</span>
+                <span className="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm">Monte Carlo Simulation</span>
+                <span className="bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full text-sm">Data Analysis</span>
+              </div>
+              <div className="flex gap-3">
+                <Link href="/projects/superconductivity" className="text-blue-400 hover:text-blue-300 transition">Explore Project →</Link>
+              </div>
+            </div>
+          </div>
+          <div className="bg-slate-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition">
+            <div className="h-48 relative">
+              <Image
                 src="/arsenal.png"
                 alt="Space Ship Battle"
                 fill
@@ -250,30 +273,6 @@ const Portfolio = () => {
           </div>
 
 
-          {/* Project 3 */}
-          <div className="bg-slate-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition">
-            <div className="h-48 relative">
-              <Image
-                src="/arsenal.png"
-                alt="Space Ship Battle"
-                fill
-                className="object-cover object-[70%_60%]"
-              />
-            </div>
-            <div className="p-6">
-              <h3 className="text-2xl font-bold text-white mb-3">Monte Carlo Superconductivity Undergraduate Research</h3>
-              <p className="text-gray-400 mb-4">
-                Researched superconductivity through computational modeling using Python and Monte Carlo simulations. Used the Metropolis algorithm to study energy states and behaviors in nature.              </p>
-              <div className="flex gap-2 flex-wrap mb-4">
-                <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm">Python</span>
-                <span className="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm">Monte Carlo Simulation</span>
-                <span className="bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full text-sm">Data Analysis</span>
-              </div>
-              <div className="flex gap-3">
-                <Link href="/projects/superconductivity" className="text-blue-400 hover:text-blue-300 transition">Explore Project →</Link>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

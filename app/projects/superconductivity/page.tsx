@@ -18,7 +18,7 @@ export default function SuperconductivityPage() {
 
                 <div className="relative h-96 w-full rounded-2xl overflow-hidden mb-8 shadow-2xl">
                     <Image
-                        src="/arsenal.png"
+                        src="/metropolisalg.png"
                         alt="Superconductivity Research"
                         fill
                         className="object-cover"
@@ -40,7 +40,7 @@ export default function SuperconductivityPage() {
 
                     <h3 className="text-xl font-bold mb-3">Research Goals</h3>
                     <ul className="list-disc list-inside text-gray-300 space-y-2">
-                        <li>Simulate particle interactions at near-zero temperatures</li>
+                        <li>Simulate particle interactions at different temperatures</li>
                         <li>Analyze phase transitions</li>
                         <li>Optimize simulation algorithms for performance</li>
                     </ul>
