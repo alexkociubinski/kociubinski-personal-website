@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState, FormEvent } from 'react';
-import Link from 'next/link';
-import { ArrowLeft, Send } from 'lucide-react';
+import { Send } from 'lucide-react';
+import BackLink from '../../components/BackLink';
 import { parseAnsi, AnsiSpan } from './utils';
 import {
     initializeGame,
@@ -222,21 +222,21 @@ export default function SpaceShipBattlePage() {
     };
 
     return (
-        <div className="min-h-screen bg-black text-white p-4 md:p-8 font-mono">
+        <div className="min-h-screen bg-bg text-text p-4 md:p-8 font-mono">
             <div className="max-w-4xl mx-auto">
-                <Link href="/?view=projects" className="inline-flex items-center gap-2 text-yellow-400 hover:text-yellow-300 mb-8 transition font-sans font-medium">
-                    <ArrowLeft size={20} />
-                    Back to Portfolio
-                </Link>
+                <BackLink />
 
-                <div className="bg-black/95 rounded-xl overflow-hidden shadow-2xl border border-neutral-700 flex flex-col h-[80vh]">
+                <h1 className="text-4xl font-bold mb-2 font-sans">Space Ship Battle</h1>
+                <p className="font-mono text-sm text-muted mb-8">2025 · TigerHacks</p>
+
+                <div className="bg-black/95 rounded-xl overflow-hidden shadow-2xl border border-border flex flex-col h-[80vh]">
                     {/* Header */}
-                    <div className="bg-neutral-900 p-4 border-b border-neutral-700 flex justify-between items-center">
+                    <div className="bg-surface p-4 border-b border-border flex justify-between items-center">
                         <div className="flex items-center gap-3">
                             <div className="w-3 h-3 rounded-full bg-red-500" />
                             <div className="w-3 h-3 rounded-full bg-yellow-500" />
                             <div className="w-3 h-3 rounded-full bg-green-500" />
-                            <span className="ml-2 text-sm text-neutral-400 font-sans">Space Defense: Operation Xylon</span>
+                            <span className="ml-2 text-sm text-muted font-sans">Space Defense: Operation Xylon</span>
                         </div>
                         {gamePhase === 'playing' && (
                             <span className="text-green-400 text-sm font-medium">
@@ -246,7 +246,7 @@ export default function SpaceShipBattlePage() {
                     </div>
 
                     {/* Terminal Output */}
-                    <div className="flex-1 overflow-y-auto p-6 space-y-1 scrollbar-thin scrollbar-thumb-neutral-600 scrollbar-track-transparent">
+                    <div className="flex-1 overflow-y-auto p-6 space-y-1">
                         {outputLines.map((line, i) => (
                             <div key={i} className="whitespace-pre-wrap break-words leading-snug">
                                 {line.map((span, j) => (
@@ -260,13 +260,13 @@ export default function SpaceShipBattlePage() {
                     </div>
 
                     {/* Input Area */}
-                    <form onSubmit={handleSubmit} className="p-4 bg-neutral-900 border-t border-neutral-700 flex gap-2">
+                    <form onSubmit={handleSubmit} className="p-4 bg-surface border-t border-border flex gap-2">
                         <span className="text-green-500 py-2">{'>'}</span>
                         <input
                             type="text"
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
-                            className="flex-1 bg-transparent border-none outline-none text-white font-mono py-2 focus:ring-0"
+                            className="flex-1 bg-transparent border-none outline-none text-text font-mono py-2 focus:ring-0"
                             placeholder={getPlaceholder()}
                             disabled={gamePhase === 'gameover' || alienTurnPending}
                             autoFocus
@@ -274,7 +274,7 @@ export default function SpaceShipBattlePage() {
                         <button
                             type="submit"
                             disabled={!inputValue || gamePhase === 'gameover' || alienTurnPending}
-                            className="p-2 text-yellow-400 hover:text-yellow-300 disabled:opacity-50 transition"
+                            className="p-2 text-accent hover:text-accent/80 disabled:opacity-50 transition"
                         >
                             <Send size={20} />
                         </button>

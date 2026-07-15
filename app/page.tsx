@@ -1,374 +1,309 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Download, Mail, TrendingUp, Code, Briefcase, User, Check } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Download, Mail, ArrowRight } from 'lucide-react';
 import Image from "next/image";
 import Link from 'next/link';
+import { GithubIcon, LinkedinIcon } from './components/icons';
+import SocialLink from './components/SocialLink';
+import SectionHeading from './components/SectionHeading';
+import ProjectCard from './components/ProjectCard';
 
+const NAV_LINKS = [
+  { href: "#about", label: "About" },
+  { href: "#projects", label: "Projects" },
+  { href: "#contact", label: "Contact" },
+] as const;
 
-// Custom icon components to replace deprecated lucide-react brand icons
-const GithubIcon = ({ size = 24 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-  </svg>
-);
+const SKILLS = [
+  { group: "Languages", items: ["Python", "C", "TypeScript", "Java", "Dart"] },
+  { group: "Trading", items: ["Quantitative Analysis", "Algorithm Development", "Risk Management"] },
+  { group: "Tools", items: ["Next.js", "React", "Flutter", "pandas", "Git"] },
+] as const;
 
-const LinkedinIcon = ({ size = 24 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-    <rect x="2" y="9" width="4" height="12"></rect>
-    <circle cx="4" cy="4" r="2"></circle>
-  </svg>
-);
+const PROJECTS = [
+  {
+    href: "/projects/superconductivity",
+    image: "/metropolisalg.png",
+    imageAlt: "Metropolis Algorithm visualization",
+    imagePosition: "object-[70%_60%]",
+    title: "Monte Carlo Superconductivity Research",
+    year: "2025",
+    description:
+      "Undergraduate research modeling superconductivity with Python and Monte Carlo simulations — using the Metropolis algorithm to study energy states and phase transitions.",
+    tags: ["Python", "Monte Carlo", "Data Analysis"],
+    ctaLabel: "Explore Project",
+  },
+  {
+    href: "/projects/arsenal-led",
+    image: "/arsenal.png",
+    imageAlt: "Arsenal LED Sign",
+    imagePosition: "object-[70%_60%]",
+    title: "Garmin-Controlled Arsenal LED Sign",
+    year: "2024",
+    description:
+      "A smart-home system that controls an Arsenal LED sign from a Garmin Fenix 5 watch via a virtual machine and Home Assistant webhooks.",
+    tags: ["Nabu Casa", "UTM VM", "Home Assistant"],
+    ctaLabel: "Explore Project",
+  },
+  {
+    href: "/projects/spaceship-battle",
+    image: "/spaceShipBattle.png",
+    imageAlt: "Space Ship Battle",
+    imagePosition: "object-[70%_50%]",
+    title: "Space Ship Battle",
+    year: "2025",
+    description:
+      "A command-line space battle game written in C using pointer arithmetic, inspired by Battleship. Play against a computer with a targeted shooting strategy — playable in the browser.",
+    tags: ["C"],
+    ctaLabel: "Live Demo",
+    extraLinks: (
+      <a
+        href="https://github.com/alexkociubinski/TigerHacks-Fall-2025-Space-Ship-Battle-"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-muted hover:text-accent transition-colors hover:underline underline-offset-4"
+      >
+        GitHub →
+      </a>
+    ),
+  },
+] as const;
 
-const Portfolio = () => {
-  const [currentPage, setCurrentPage] = useState('home');
+function NavBar() {
+  const [active, setActive] = useState<string>("");
+  const [scrolled, setScrolled] = useState(false);
 
-  // Check URL parameters on mount to set initial page
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const view = params.get('view');
-    /* if (view === 'projects' || view === 'trading') {
-      setCurrentPage(view);
-    } */
-    if (view === 'projects') {
-      setCurrentPage(view);
-    }
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Scroll to top when page changes
+  // Highlight the nav link for the section currently in view.
   useEffect(() => {
-    const scrollToTop = () => {
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: 'instant' as ScrollBehavior
-      });
-    };
+    const ids = NAV_LINKS.map((l) => l.href.slice(1));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(`#${entry.target.id}`);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px" }
+    );
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
 
-    // Execute immediately and after a short delay to ensure browser doesn't override
-    scrollToTop();
-    const timeoutId = setTimeout(scrollToTop, 10);
+  return (
+    <nav
+      className={`sticky top-0 z-50 border-b transition-colors ${
+        scrolled
+          ? "border-border bg-bg/80 backdrop-blur"
+          : "border-transparent bg-bg/40 backdrop-blur-sm"
+      }`}
+    >
+      <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+        <Link href="#top" className="flex items-center gap-2 font-bold text-text">
+          <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+          Alex Kociubinski
+        </Link>
+        <div className="flex gap-6 text-sm">
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className={`transition-colors hover:text-accent ${
+                active === link.href ? "text-accent" : "text-muted"
+              }`}
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </nav>
+  );
+}
 
-    return () => clearTimeout(timeoutId);
-  }, [currentPage]);
-
+function Hero() {
   const downloadResume = () => {
-    // In production, replace with your actual resume file
-    const link = document.createElement('a');
-    link.href = '/resume.pdf'; // Place your resume.pdf in the public folder
-    link.download = 'Your_Name_Resume.pdf';
+    const link = document.createElement("a");
+    link.href = "/resume.pdf";
+    link.download = "Alex_Kociubinski_Resume.pdf";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
 
-  const NavBar = () => (
-    <nav className="bg-black text-white sticky top-0 z-50 shadow-lg border-b border-neutral-800">
-      <div className="max-w-6xl mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">
-            Alex Kociubinski
-          </h1>
-          <div className="flex gap-6">
-            <button
-              onClick={() => setCurrentPage('home')}
-              className={`hover:text-yellow-400 transition ${currentPage === 'home' ? 'text-yellow-400' : ''}`}
-            >
-              Home
-            </button>
-            <button
-              onClick={() => setCurrentPage('projects')}
-              className={`hover:text-yellow-400 transition ${currentPage === 'projects' ? 'text-yellow-400' : ''}`}
-            >
-              Projects
-            </button>
-            {/* <button
-              onClick={() => setCurrentPage('trading')}
-              className={`hover:text-yellow-400 transition ${currentPage === 'trading' ? 'text-yellow-400' : ''}`}
-            >
-              Trading
-            </button> */}
-          </div>
+  return (
+    <section id="top" className="max-w-4xl mx-auto px-6 pt-24 pb-20">
+      <div className="flex items-center gap-5 mb-8 animate-fade-in">
+        <div className="relative w-20 h-20 rounded-full overflow-hidden border border-border shrink-0">
+          <Image
+            src="/headshot.jpeg"
+            alt="Alex Kociubinski"
+            fill
+            className="object-cover"
+            priority
+          />
         </div>
+        <span className="font-mono text-sm text-muted">Columbia, MO</span>
       </div>
-    </nav>
-  );
 
-  const HomePage = () => (
-    <div className="min-h-screen bg-black bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-neutral-900 via-black to-black">
-      <div className="max-w-6xl mx-auto px-4 py-16">
-        {/* Hero Section */}
-        <div className="text-center mb-20 animate-fade-in">
-          <div className="relative w-40 h-40 mx-auto mb-6 rounded-full overflow-hidden shadow-2xl border-4 border-neutral-800 hover:scale-105 transition-transform duration-500 hover:border-yellow-500/50 hover:shadow-yellow-500/20 group">
-            <Image
-              src="/headshot.jpeg"
-              alt="Alex Kociubinski"
-              fill
-              className="object-cover group-hover:scale-110 transition-transform duration-500"
-              priority
-            />
-          </div>
-          <h2 className="text-5xl font-bold text-white mb-4 animate-slide-up">
-            Hi, I'm <span className="bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">Alex Kociubinski</span>
-          </h2>
-          <p className="text-xl text-neutral-400 mb-8 animate-slide-up-delay-1">
-            Computer Science & Mathematics Dual Major | University of Missouri
-          </p>
-          <div className="flex flex-col items-center gap-4 animate-slide-up-delay-2">
-            <div className="flex gap-4 justify-center">
-              <a href="https://github.com/alexkociubinski" target="_blank" rel="noopener noreferrer"
-                className="bg-neutral-800 hover:bg-neutral-700 text-white p-3 rounded-full transition hover:scale-110 hover:text-yellow-400 border border-neutral-700">
-                <GithubIcon size={24} />
-              </a>
-              <a href="https://linkedin.com/in/alex-kociubinski" target="_blank" rel="noopener noreferrer"
-                className="bg-neutral-800 hover:bg-neutral-700 text-white p-3 rounded-full transition hover:scale-110 hover:text-yellow-400 border border-neutral-700">
-                <LinkedinIcon size={24} />
-              </a>
-              <button
-                onClick={() => window.location.href = 'mailto:ak44z@umsystem.edu'}
-                className="bg-neutral-800 hover:bg-neutral-700 text-white p-3 rounded-full transition hover:scale-110 hover:text-yellow-400 border border-neutral-700"
-                aria-label="Send email to ak44z@umsystem.edu"
-              >
-                <Mail size={24} />
-              </button>
-            </div>
-            <button
-              onClick={downloadResume}
-              className="bg-yellow-500 hover:bg-yellow-400 text-black px-6 py-3 rounded-lg flex items-center gap-2 transition hover:scale-105 active:scale-95 font-bold shadow-lg shadow-yellow-500/20"
-            >
-              <Download size={20} />
-              Download Resume
-            </button>
-          </div>
-        </div>
-
-        {/* About Section */}
-        <div className="bg-neutral-900 rounded-2xl p-8 mb-12 shadow-xl border border-neutral-800 animate-slide-up-delay-1">
-          <h3 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
-            <User className="text-yellow-400" />
-            About Me
-          </h3>
-          <p className="text-neutral-300 text-lg leading-relaxed mb-4">
-            I'm a developer and student interested in quantitative finance and algorithmic trading.
-            I like working on projects that mix data and strategy, and help people.
-            At Mizzou, I am part of the TigerQuant and Mizzou Computing Association (MCA) student organizations.
-          </p>
-          <p className="text-neutral-300 text-lg leading-relaxed">
-            Outside of coding, I spend my time working out, running with the Mizzou Club Running Team, doing marathons, and watching sports, especially football and soccer.
-            I am a Seattle Seahawks and an Arsenal Fan, unfortunatly.
-          </p>
-        </div>
-
-        {/* Skills Section */}
-        <div className="grid md:grid-cols-3 gap-6 mb-12 animate-slide-up-delay-2">
-          <div className="bg-neutral-900 rounded-xl p-6 shadow-xl transition-all duration-300 border border-neutral-800 group hover:border-yellow-500/50 hover:-translate-y-2 hover:shadow-2xl hover:shadow-yellow-500/10">
-            <Code className="text-yellow-400 mb-4 group-hover:scale-110 transition-transform duration-300" size={32} />
-            <h4 className="text-xl font-bold text-white mb-3 group-hover:text-yellow-400 transition">Development</h4>
-            <p className="text-neutral-400">Python, C, Flutter, Java, Next.js</p>
-          </div>
-          <div className="bg-neutral-900 rounded-xl p-6 shadow-xl transition-all duration-300 border border-neutral-800 group hover:border-yellow-500/50 hover:-translate-y-2 hover:shadow-2xl hover:shadow-yellow-500/10">
-            <TrendingUp className="text-yellow-400 mb-4 group-hover:scale-110 transition-transform duration-300" size={32} />
-            <h4 className="text-xl font-bold text-white mb-3 group-hover:text-yellow-400 transition">Trading</h4>
-            <p className="text-neutral-400">Quantitative Analysis, Algorithm Development, Risk Management</p>
-          </div>
-          <div className="bg-neutral-900 rounded-xl p-6 shadow-xl transition-all duration-300 border border-neutral-800 group hover:border-yellow-500/50 hover:-translate-y-2 hover:shadow-2xl hover:shadow-yellow-500/10">
-            <Briefcase className="text-amber-500 mb-4 group-hover:scale-110 transition-transform duration-300" size={32} />
-            <h4 className="text-xl font-bold text-white mb-3 group-hover:text-yellow-400 transition">Experience</h4>
-            <p className="text-neutral-400">Full-Stack Projects, Data Science, Financial Modeling</p>
-          </div>
-        </div>
-
-        {/* Quick Links */}
-        <div className="text-center animate-slide-up-delay-2">
-          <h3 className="text-2xl font-bold text-white mb-6">Explore More</h3>
-          <div className="flex gap-4 justify-center">
-            <button
-              onClick={() => setCurrentPage('projects')}
-              className="bg-yellow-500 hover:bg-yellow-400 text-black px-6 py-3 rounded-lg font-bold transition hover:scale-105 active:scale-95 shadow-lg shadow-yellow-500/20"
-            >
-              View Projects
-            </button>
-            {/* <button
-              onClick={() => setCurrentPage('trading')}
-              className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-semibold transition"
-            >
-              Trading Dashboard
-            </button> */}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  const ProjectsPage = () => (
-    <div className="min-h-screen bg-black">
-      <div className="max-w-6xl mx-auto px-4 py-16">
-        <h2 className="text-4xl font-bold text-white mb-12 text-center">My Projects</h2>
-
-        <div className="grid md:grid-cols-2 gap-8 animate-fade-in-delay">
-          {/* Project 1 */}
-          <div className="bg-neutral-900 rounded-2xl overflow-hidden shadow-xl transition-all duration-300 border border-neutral-800 hover:border-yellow-500/50 group hover:-translate-y-2 hover:shadow-2xl hover:shadow-yellow-500/10">
-            <div className="h-48 relative overflow-hidden">
-              <Image
-                src="/metropolisalg.png"
-                alt="Metropolis Algorithm"
-                fill
-                className="object-cover object-[70%_60%] group-hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-            <div className="p-6">
-              <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-yellow-400 transition">Monte Carlo Superconductivity Undergraduate Research</h3>
-              <p className="text-neutral-400 mb-4">
-                Researched superconductivity through computational modeling using Python and Monte Carlo simulations. Used the Metropolis algorithm to study energy states and behaviors in nature.              </p>
-              <div className="flex gap-2 flex-wrap mb-4">
-                <span className="bg-yellow-500/10 text-yellow-400 px-3 py-1 rounded-full text-sm border border-yellow-500/20">Python</span>
-                <span className="bg-amber-500/10 text-amber-400 px-3 py-1 rounded-full text-sm border border-amber-500/20">Monte Carlo Simulation</span>
-                <span className="bg-neutral-700/50 text-neutral-300 px-3 py-1 rounded-full text-sm border border-neutral-700">Data Analysis</span>
-              </div>
-              <div className="flex gap-3">
-                <Link href="/projects/superconductivity" className="text-yellow-400 hover:text-yellow-300 transition font-medium hover:underline underline-offset-4">Explore Project →</Link>
-              </div>
-            </div>
-          </div>
-          <div className="bg-neutral-900 rounded-2xl overflow-hidden shadow-xl transition-all duration-300 border border-neutral-800 hover:border-yellow-500/50 group hover:-translate-y-2 hover:shadow-2xl hover:shadow-yellow-500/10">
-            <div className="h-48 relative overflow-hidden">
-              <Image
-                src="/arsenal.png"
-                alt="Space Ship Battle"
-                fill
-                className="object-cover object-[70%_60%] group-hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-            <div className="p-6">
-              <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-yellow-400 transition">Garmin Controled Arsenal LED Sign</h3>
-              <p className="text-neutral-400 mb-4">
-                An integraded smart home system that allows the control of an Arsenal LED Sign with a Garmin Fenix 5 watch using virtual machines and Home Assistant.
-              </p>
-              <div className="flex gap-2 flex-wrap mb-4">
-                <span className="bg-yellow-500/10 text-yellow-400 px-3 py-1 rounded-full text-sm border border-yellow-500/20">Nabu Casa</span>
-                <span className="bg-amber-500/10 text-amber-400 px-3 py-1 rounded-full text-sm border border-amber-500/20">UTM Virtual Machine</span>
-                <span className="bg-neutral-700/50 text-neutral-300 px-3 py-1 rounded-full text-sm border border-neutral-700">Home Assistant Webhooks</span>
-              </div>
-              <div className="flex gap-3">
-                <Link href="/projects/arsenal-led" className="text-yellow-400 hover:text-yellow-300 transition font-medium hover:underline underline-offset-4">Explore Project →</Link>
-              </div>
-            </div>
-          </div>
-
-          {/* Project 2 */}
-          <div className="bg-neutral-900 rounded-2xl overflow-hidden shadow-xl transition-all duration-300 border border-neutral-800 hover:border-yellow-500/50 group hover:-translate-y-2 hover:shadow-2xl hover:shadow-yellow-500/10">
-            <div className="h-48 relative overflow-hidden">
-              <Image
-                src="/spaceShipBattle.png"
-                alt="Space Ship Battle"
-                fill
-                className="object-cover object-[70%_50%] group-hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-
-            <div className="p-6">
-              <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-yellow-400 transition">Space Ship Battle</h3>
-              <p className="text-neutral-400 mb-4">
-                A command line space ship battle game written in C, using pointer arithmetic,
-                inspired by the board game Battleship. Players take turns playing against
-                a computer with a targeted shooting strategy.
-              </p>
-
-              <div className="flex gap-2 flex-wrap mb-4">
-                <span className="bg-yellow-500/10 text-yellow-400 px-3 py-1 rounded-full text-sm border border-yellow-500/20">C</span>
-              </div>
-
-              <div className="flex gap-3">
-                <Link href="/projects/spaceship-battle" className="text-yellow-400 hover:text-yellow-300 transition font-medium hover:underline underline-offset-4">Live Demo →</Link>
-                <a href="https://github.com/alexkociubinski/TigerHacks-Fall-2025-Space-Ship-Battle-"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-neutral-400 hover:text-white transition hover:underline underline-offset-4">GitHub →</a>
-              </div>
-            </div>
-          </div>
-
-
-        </div>
-      </div>
-    </div>
-  );
-
-  /* const TradingPage = () => (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      <div className="max-w-6xl mx-auto px-4 py-16">
-        <h2 className="text-4xl font-bold text-white mb-4 text-center">Trading Strategies</h2>
-        <p className="text-gray-400 text-center mb-12">Real-time performance metrics coming soon</p>
-
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
-          <div className="bg-slate-800 rounded-xl p-6 shadow-xl">
-            <h3 className="text-xl font-bold text-white mb-4">Strategy 1: Momentum</h3>
-            <div className="space-y-3">
-              <div className="flex justify-between text-gray-300">
-                <span>Total Return:</span>
-                <span className="text-green-400 font-semibold">+24.5%</span>
-              </div>
-              <div className="flex justify-between text-gray-300">
-                <span>Sharpe Ratio:</span>
-                <span className="font-semibold">1.8</span>
-              </div>
-              <div className="flex justify-between text-gray-300">
-                <span>Max Drawdown:</span>
-                <span className="text-red-400 font-semibold">-12.3%</span>
-              </div>
-            </div>
-            <p className="text-gray-400 mt-4 text-sm">
-              Placeholder metrics. Connect to your trading API for live data.
-            </p>
-          </div>
-
-          <div className="bg-slate-800 rounded-xl p-6 shadow-xl">
-            <h3 className="text-xl font-bold text-white mb-4">Strategy 2: Mean Reversion</h3>
-            <div className="space-y-3">
-              <div className="flex justify-between text-gray-300">
-                <span>Total Return:</span>
-                <span className="text-green-400ls  font-semibold">+18.2%</span>
-              </div>
-              <div className="flex justify-between text-gray-300">
-                <span>Sharpe Ratio:</span>
-                <span className="font-semibold">1.5</span>
-              </div>
-              <div className="flex justify-between text-gray-300">
-                <span>Max Drawdown:</span>
-                <span className="text-red-400 font-semibold">-8.7%</span>
-              </div>
-            </div>
-            <p className="text-gray-400 mt-4 text-sm">
-              Placeholder metrics. Connect to your trading API for live data.
-            </p>
-          </div>
-       </div>
-
-  <div className="bg-slate-800 rounded-2xl p-8 shadow-xl">
-    <h3 className="text-2xl font-bold text-white mb-4">Performance Chart</h3>
-    <div className="aspect-video bg-slate-900 rounded-lg flex items-center justify-center">
-      <p className="text-gray-500">
-        Chart visualization area - integrate with recharts or your preferred charting library
+      <h1 className="text-5xl font-bold text-text mb-4 animate-slide-up">
+        Hi, I&apos;m Alex Kociubinski
+      </h1>
+      <p className="text-xl text-muted mb-8 max-w-2xl animate-slide-up-delay-1">
+        Computer Science &amp; Mathematics dual major at the University of Missouri.
+        Interested in quantitative finance, algorithmic trading, and building things
+        that mix data and strategy.
       </p>
-    </div>
-    <p className="text-gray-400 mt-4">
-      This section is ready for you to integrate real-time data from your trading platform.
-      You can use WebSocket connections or API polling to update metrics live.
-    </p>
-  </div>
-     </div>
-  </div>
-  ); */
+
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-3 animate-slide-up-delay-2">
+        <SocialLink
+          href="https://github.com/alexkociubinski"
+          label="github"
+          icon={<GithubIcon size={18} />}
+        />
+        <SocialLink
+          href="https://linkedin.com/in/alex-kociubinski"
+          label="linkedin"
+          icon={<LinkedinIcon size={18} />}
+        />
+        <SocialLink
+          href="mailto:ak44z@umsystem.edu"
+          label="email"
+          icon={<Mail size={18} />}
+        />
+        <button
+          onClick={downloadResume}
+          className="inline-flex items-center gap-1.5 text-muted hover:text-accent transition-colors"
+        >
+          <Download size={18} />
+          <span>résumé</span>
+        </button>
+      </div>
+    </section>
+  );
+}
+
+function About() {
+  return (
+    <section className="max-w-4xl mx-auto px-6 animate-slide-up">
+      <SectionHeading id="about">About</SectionHeading>
+      <div className="space-y-4 text-lg leading-relaxed text-muted">
+        <p>
+          I&apos;m a developer and student interested in{" "}
+          <span className="text-text">quantitative finance</span> and{" "}
+          <span className="text-text">algorithmic trading</span>. I like working on
+          projects that mix data and strategy, and help people. At Mizzou, I&apos;m
+          part of <span className="text-text">TigerQuant</span> and the{" "}
+          <span className="text-text">Mizzou Computing Association</span>.
+        </p>
+        <p>
+          Outside of coding, I spend my time working out, running with the Mizzou Club
+          Running Team, doing marathons, and watching sports — especially football and
+          soccer. I&apos;m a Seattle Seahawks and an Arsenal fan, unfortunately.
+        </p>
+      </div>
+
+      {/* Skills — inline tag list grouped by category */}
+      <div className="mt-10 space-y-3">
+        {SKILLS.map((row) => (
+          <div
+            key={row.group}
+            className="flex flex-col sm:flex-row sm:gap-4 sm:items-baseline"
+          >
+            <span className="font-mono text-sm text-text w-28 shrink-0">
+              {row.group}
+            </span>
+            <span className="font-mono text-sm text-muted">
+              {row.items.join("  ·  ")}
+            </span>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Projects() {
+  return (
+    <section className="max-w-4xl mx-auto px-6 mt-20">
+      <SectionHeading id="projects">Projects</SectionHeading>
+      <div className="grid md:grid-cols-2 gap-6">
+        {PROJECTS.map((project) => (
+          <ProjectCard key={project.href} {...project} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Contact() {
+  const downloadResume = () => {
+    const link = document.createElement("a");
+    link.href = "/resume.pdf";
+    link.download = "Alex_Kociubinski_Resume.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
-    <div className="min-h-screen bg-black">
+    <section className="max-w-4xl mx-auto px-6 mt-20 mb-24">
+      <SectionHeading id="contact">Contact</SectionHeading>
+      <p className="text-lg text-muted mb-6 max-w-2xl">
+        Feel free to reach out — whether it&apos;s about a project, an opportunity, or
+        just to chat.
+      </p>
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+        <SocialLink
+          href="mailto:ak44z@umsystem.edu"
+          label="ak44z@umsystem.edu"
+          icon={<Mail size={18} />}
+        />
+        <SocialLink
+          href="https://github.com/alexkociubinski"
+          label="github"
+          icon={<GithubIcon size={18} />}
+        />
+        <SocialLink
+          href="https://linkedin.com/in/alex-kociubinski"
+          label="linkedin"
+          icon={<LinkedinIcon size={18} />}
+        />
+        <button
+          onClick={downloadResume}
+          className="inline-flex items-center gap-1.5 text-muted hover:text-accent transition-colors"
+        >
+          <span>résumé</span>
+          <ArrowRight size={16} />
+        </button>
+      </div>
+
+      <footer className="mt-16 pt-6 border-t border-border font-mono text-sm text-muted">
+        © {new Date().getFullYear()} Alex Kociubinski
+      </footer>
+    </section>
+  );
+}
+
+export default function Portfolio() {
+  return (
+    <div className="min-h-screen bg-bg text-text">
       <NavBar />
-      {currentPage === 'home' && <HomePage />}
-      {currentPage === 'projects' && <ProjectsPage />}
-      {/* {currentPage === 'trading' && <TradingPage />} */}
+      <main>
+        <Hero />
+        <About />
+        <Projects />
+        <Contact />
+      </main>
     </div>
   );
-};
-
-export default Portfolio;
+}
