@@ -5,7 +5,9 @@ import { TagList } from "./Tag";
 
 /**
  * Card for the projects grid. Image header, title, short description,
- * year, and monospace tech tags. Links to the project's detail route.
+ * year, and monospace tech tags. The card itself is a div (not a link)
+ * so that an optional `extraLinks` (e.g. a GitHub link) can sit alongside
+ * the main "Explore →" link without producing nested <a> tags.
  */
 export default function ProjectCard({
   href,
@@ -31,11 +33,8 @@ export default function ProjectCard({
   extraLinks?: ReactNode;
 }) {
   return (
-    <Link
-      href={href}
-      className="group block rounded-xl border border-border bg-surface overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-accent/50"
-    >
-      <div className="h-48 relative overflow-hidden">
+    <div className="group rounded-xl border border-border bg-surface overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-accent/50">
+      <Link href={href} className="block relative h-48 overflow-hidden">
         <Image
           src={image}
           alt={imageAlt}
@@ -43,23 +42,29 @@ export default function ProjectCard({
           className={`object-cover ${imagePosition} group-hover:scale-105 transition-transform duration-500`}
           sizes="(max-width: 768px) 100vw, 50vw"
         />
-      </div>
+      </Link>
       <div className="p-6">
         <div className="flex items-baseline justify-between gap-3 mb-2">
-          <h3 className="text-lg font-bold text-text group-hover:text-accent transition-colors">
+          <Link
+            href={href}
+            className="text-lg font-bold text-text group-hover:text-accent transition-colors"
+          >
             {title}
-          </h3>
+          </Link>
           <span className="font-mono text-sm text-muted shrink-0">{year}</span>
         </div>
         <p className="text-muted mb-4 leading-relaxed">{description}</p>
         <TagList items={tags} />
         <div className="mt-4 flex gap-4 items-center">
-          <span className="text-accent group-hover:underline underline-offset-4">
+          <Link
+            href={href}
+            className="text-accent group-hover:underline underline-offset-4"
+          >
             {ctaLabel} →
-          </span>
+          </Link>
           {extraLinks}
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
