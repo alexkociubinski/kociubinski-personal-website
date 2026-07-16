@@ -28,7 +28,6 @@ const PROJECTS = [
     imageAlt: 'Metropolis algorithm visualization',
     imagePosition: 'object-[70%_60%]',
     title: 'Monte Carlo Superconductivity Research',
-    year: '2025',
     description:
       'Undergraduate research modeling superconductivity with Python and Monte Carlo simulations — using the Metropolis algorithm to study energy states and phase transitions.',
     tags: ['Python', 'Monte Carlo', 'Data analysis'],
@@ -39,7 +38,6 @@ const PROJECTS = [
     imageAlt: 'Arsenal LED sign',
     imagePosition: 'object-[70%_60%]',
     title: 'Garmin-Controlled Arsenal LED Sign',
-    year: '2024',
     description:
       'A smart-home system that controls an Arsenal LED sign from a Garmin Fenix 5 watch, via a virtual machine and Home Assistant webhooks.',
     tags: ['Nabu Casa', 'UTM VM', 'Home Assistant'],
@@ -50,7 +48,6 @@ const PROJECTS = [
     imageAlt: 'Space Ship Battle',
     imagePosition: 'object-[70%_50%]',
     title: 'Space Ship Battle',
-    year: '2025',
     description:
       'A command-line space battle game in C using pointer arithmetic, inspired by Battleship. Play against a computer with a targeted shooting strategy — playable in the browser.',
     tags: ['C'],

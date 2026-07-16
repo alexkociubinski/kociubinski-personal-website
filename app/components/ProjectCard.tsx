@@ -3,7 +3,7 @@ import Link from "next/link";
 
 /**
  * Builds-style project card — full-bleed 16:9 image with layered overlays.
- * Default state: faded image + gradient/blur with title, description, and year.
+ * Default state: faded image + gradient/blur with title and description.
  * Hover state: image reveals, text fades, tech tags appear at bottom.
  * The entire card is a single <Link> (no nested interactive elements).
  *
@@ -15,7 +15,6 @@ export default function ProjectCard({
   imageAlt,
   imagePosition = "object-center",
   title,
-  year,
   description,
   tags,
 }: {
@@ -24,7 +23,6 @@ export default function ProjectCard({
   imageAlt: string;
   imagePosition?: string;
   title: string;
-  year: string;
   description: string;
   tags: readonly string[];
 }) {
@@ -47,20 +45,13 @@ export default function ProjectCard({
         <div className="absolute inset-0 backdrop-blur-md [mask-image:linear-gradient(to_bottom,black_30%,transparent_70%)] transition-opacity duration-300 group-hover:opacity-0" />
 
         {/* Content overlay — visible by default, hidden on hover */}
-        <div className="relative z-10 h-full flex flex-col justify-between p-4 transition-opacity duration-300 group-hover:opacity-0">
-          <div>
-            <h3 className="font-bold text-text text-base leading-tight">
-              {title}
-            </h3>
-            <p className="text-sm text-muted mt-1 line-clamp-2">
-              {description}
-            </p>
-          </div>
-          <div className="flex flex-wrap items-center gap-1.5">
-            <span className="nums font-mono text-xs px-2 py-1 rounded-md bg-bg/80 backdrop-blur-sm text-text/80 border border-border/50">
-              {year}
-            </span>
-          </div>
+        <div className="relative z-10 h-full flex flex-col p-4 transition-opacity duration-300 group-hover:opacity-0">
+          <h3 className="font-bold text-text text-base leading-tight">
+            {title}
+          </h3>
+          <p className="text-sm text-muted mt-1 line-clamp-2">
+            {description}
+          </p>
         </div>
 
         {/* Tech tags — hidden by default, revealed on hover */}
