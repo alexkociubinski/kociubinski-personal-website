@@ -1,0 +1,15 @@
+[
+  {
+    "date": "2026-07-15",
+    "scope": "app",
+    "macrostructure": "Long Document",
+    "theme": "studied-DNA",
+    "theme_axes": "dark / geometric-sans (Geist) / warm-gold accent",
+    "enrichment": "none — typography only",
+    "nav": "N9 edge-aligned minimal",
+    "footer": "Ft5 statement",
+    "brief": "Alex Kociubinski personal site — redesign on johnathanmo.com DNA, Mizzou gold accent",
+    "design_system": "design.md",
+    "source": "https://www.johnathanmo.com/"
+  }
+]

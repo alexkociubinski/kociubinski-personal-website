@@ -5,9 +5,10 @@ import { TagList } from "./Tag";
 
 /**
  * Card for the projects grid. Image header, title, short description,
- * year, and monospace tech tags. The card itself is a div (not a link)
- * so that an optional `extraLinks` (e.g. a GitHub link) can sit alongside
- * the main "Explore →" link without producing nested <a> tags.
+ * year, and monospace tech tags. The card is a div (not a link) so an
+ * optional `extraLinks` (e.g. GitHub) sits alongside the main link
+ * without nesting <a> tags. Hover = border-color shift only (no scale on
+ * the card); the image may zoom inside the card.
  */
 export default function ProjectCard({
   href,
@@ -18,7 +19,7 @@ export default function ProjectCard({
   year,
   description,
   tags,
-  ctaLabel = "Explore Project",
+  ctaLabel = "Explore",
   extraLinks,
 }: {
   href: string;
@@ -33,8 +34,8 @@ export default function ProjectCard({
   extraLinks?: ReactNode;
 }) {
   return (
-    <div className="group rounded-xl border border-border bg-surface overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-accent/50">
-      <Link href={href} className="block relative h-48 overflow-hidden">
+    <div className="group rounded-xl border border-border bg-surface overflow-hidden transition-colors duration-200 hover:border-accent/50">
+      <Link href={href} className="block relative h-44 overflow-hidden">
         <Image
           src={image}
           alt={imageAlt}
@@ -43,22 +44,22 @@ export default function ProjectCard({
           sizes="(max-width: 768px) 100vw, 50vw"
         />
       </Link>
-      <div className="p-6">
+      <div className="p-5">
         <div className="flex items-baseline justify-between gap-3 mb-2">
           <Link
             href={href}
-            className="text-lg font-bold text-text group-hover:text-accent transition-colors"
+            className="text-lg font-bold tracking-tight text-text group-hover:text-accent transition-colors"
           >
             {title}
           </Link>
-          <span className="font-mono text-sm text-muted shrink-0">{year}</span>
+          <span className="nums font-mono text-sm text-muted shrink-0">{year}</span>
         </div>
-        <p className="text-muted mb-4 leading-relaxed">{description}</p>
+        <p className="text-muted text-sm leading-relaxed mb-4">{description}</p>
         <TagList items={tags} />
-        <div className="mt-4 flex gap-4 items-center">
+        <div className="mt-4 flex gap-4 items-center whitespace-nowrap">
           <Link
             href={href}
-            className="text-accent group-hover:underline underline-offset-4"
+            className="text-accent hover:underline underline-offset-4"
           >
             {ctaLabel} →
           </Link>

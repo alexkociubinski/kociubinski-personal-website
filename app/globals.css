@@ -1,70 +1,49 @@
+/* Hallmark · genre: modern-minimal · macrostructure: Long Document · theme: studied-DNA
+ * (source: https://www.johnathanmo.com/) · accent: Mizzou gold ~3% · designed-as-app ·
+ * design-system: design.md · nav: N9 edge-aligned minimal · footer: Ft5 statement
+ */
+
 @import "tailwindcss";
 
-/*
-  Design tokens — monochrome base with a Mizzou gold accent.
-  Tailwind v4 reads these via @theme and generates utilities
-  (bg-bg, bg-surface, border-border, text-text, text-muted, text-accent, ...).
-*/
+/* ---- Design tokens (Tailwind v4 @theme — source of truth, mirrors design.md) ---- */
 @theme inline {
-  --color-bg: #0a0a0a;
-  --color-surface: #141414;
-  --color-border: #262626;
-  --color-text: #ededed;
-  --color-muted: #a1a1aa;
-  --color-accent: #f1b82d;
+  /* colour — near-black warm-neutral paper, Mizzou gold accent */
+  --color-bg: oklch(15% 0.005 75);
+  --color-surface: oklch(19% 0.006 75);
+  --color-border: oklch(28% 0.006 75);
+  --color-text: oklch(93% 0.004 75);
+  --color-muted: oklch(66% 0.008 75);
+  --color-accent: oklch(83% 0.14 85);
+  --color-accent-ink: oklch(18% 0.01 75);
+  --color-focus: oklch(83% 0.14 85);
 
+  /* fonts — Geist display/body + Geist Mono outlier (next/font) */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-short: 180ms;
 }
 
 html {
   scroll-behavior: smooth;
-  /* offset anchor jumps so the sticky navbar doesn't cover section titles */
   scroll-padding-top: 5rem;
+  overflow-x: clip;
 }
 
 @layer utilities {
-  .animate-fade-in {
-    animation: fadeIn 0.8s ease-out forwards;
-  }
-
-  .animate-slide-up {
-    animation: slideUp 0.8s ease-out forwards;
-    opacity: 0;
-  }
-
-  .animate-fade-in-delay {
-    animation: fadeIn 0.8s ease-out 0.3s forwards;
-    opacity: 0;
-  }
-
-  .animate-slide-up-delay-1 {
-    animation: slideUp 0.8s ease-out 0.2s forwards;
-    opacity: 0;
-  }
-
-  .animate-slide-up-delay-2 {
-    animation: slideUp 0.8s ease-out 0.4s forwards;
+  .animate-fade-up {
+    animation: fadeUp 0.6s var(--ease-out) forwards;
     opacity: 0;
   }
 }
 
-@keyframes fadeIn {
+@keyframes fadeUp {
   from {
     opacity: 0;
+    transform: translateY(12px);
   }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -75,5 +54,43 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-sans);
-  overflow-x: hidden;
+  font-feature-settings: "kern";
+  overflow-x: clip;
+  text-rendering: optimizeLegibility;
+}
+
+/* display headline wrapping — long words/emails never overflow */
+h1, h2 {
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+/* tabular figures wherever numbers line up (years, dates) */
+.nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* instant, never-animated focus ring on every interactive element */
+:where(a, button, input, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* one orchestrated entrance on load; after that, content is just there */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-fade-up {
+    animation: none;
+    opacity: 1;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }

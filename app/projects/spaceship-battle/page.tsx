@@ -222,12 +222,12 @@ export default function SpaceShipBattlePage() {
     };
 
     return (
-        <div className="min-h-screen bg-bg text-text p-4 md:p-8 font-mono">
-            <div className="max-w-4xl mx-auto">
+        <div className="min-h-screen bg-bg text-text font-mono">
+            <div className="max-w-4xl mx-auto px-4 md:px-6 py-12">
                 <BackLink />
 
-                <h1 className="text-4xl font-bold mb-2 font-sans">Space Ship Battle</h1>
-                <p className="font-mono text-sm text-muted mb-8">2025 · TigerHacks</p>
+                <h1 className="text-[clamp(2rem,4vw+0.5rem,3rem)] font-bold tracking-tight mb-2 font-sans">Space Ship Battle</h1>
+                <p className="nums font-mono text-sm text-muted mb-8 font-mono">2025 · TigerHacks</p>
 
                 <div className="bg-black/95 rounded-xl overflow-hidden shadow-2xl border border-border flex flex-col h-[80vh]">
                     {/* Header */}

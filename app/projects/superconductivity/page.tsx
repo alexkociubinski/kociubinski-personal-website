@@ -8,12 +8,12 @@ import { TagList } from '../../components/Tag';
 
 export default function SuperconductivityPage() {
     return (
-        <div className="min-h-screen bg-bg text-text p-8">
-            <div className="max-w-4xl mx-auto">
+        <div className="min-h-screen bg-bg text-text">
+            <div className="max-w-4xl mx-auto px-6 py-12">
                 <BackLink />
 
-                <h1 className="text-4xl font-bold mb-2">Monte Carlo Superconductivity Research</h1>
-                <p className="font-mono text-sm text-muted mb-8">2025</p>
+                <h1 className="text-[clamp(2rem,4vw+0.5rem,3rem)] font-bold tracking-tight mb-2">Monte Carlo Superconductivity Research</h1>
+                <p className="nums font-mono text-sm text-muted mb-8">2025</p>
 
                 <div className="relative h-96 w-full rounded-xl overflow-hidden mb-12 border border-border">
                     <Image
