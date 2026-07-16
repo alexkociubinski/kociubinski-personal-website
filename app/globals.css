@@ -6,16 +6,16 @@
 @import "tailwindcss";
 
 /* ---- Design tokens (Tailwind v4 @theme — source of truth, mirrors design.md) ---- */
-@theme inline {
-  /* colour — near-black warm-neutral paper, Mizzou gold accent */
-  --color-bg: oklch(15% 0.005 75);
-  --color-surface: oklch(19% 0.006 75);
-  --color-border: oklch(28% 0.006 75);
-  --color-text: oklch(93% 0.004 75);
-  --color-muted: oklch(66% 0.008 75);
-  --color-accent: oklch(83% 0.14 85);
-  --color-accent-ink: oklch(18% 0.01 75);
-  --color-focus: oklch(83% 0.14 85);
+@theme {
+  /* colour — warm-neutral paper, darker gold/bronze accent */
+  --color-bg: oklch(98% 0.004 75);
+  --color-surface: oklch(95% 0.005 75);
+  --color-border: oklch(86% 0.006 75);
+  --color-text: oklch(15% 0.005 75);
+  --color-muted: oklch(48% 0.008 75);
+  --color-accent: oklch(50% 0.14 75);      /* Darker bronze/gold for readable contrast */
+  --color-accent-ink: oklch(98% 0.004 75);
+  --color-focus: oklch(50% 0.14 75);
 
   /* fonts — Geist display/body + Geist Mono outlier (next/font) */
   --font-sans: var(--font-geist-sans);
@@ -24,6 +24,35 @@
   /* motion */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --dur-short: 180ms;
+}
+
+/* ---- Dark Mode Overrides (matches design.md guidelines) ---- */
+html.dark {
+  --color-bg: oklch(15% 0.005 75);
+  --color-surface: oklch(19% 0.006 75);
+  --color-border: oklch(28% 0.006 75);
+  --color-text: oklch(93% 0.004 75);
+  --color-muted: oklch(66% 0.008 75);
+  --color-accent: oklch(83% 0.14 85);       /* Mizzou gold accent for dark mode */
+  --color-accent-ink: oklch(18% 0.01 75);
+  --color-focus: oklch(83% 0.14 85);
+}
+
+/* Smooth transition for theme toggling */
+body,
+nav,
+footer,
+h1,
+h2,
+h3,
+p,
+a,
+button,
+input,
+.border,
+.bg-bg,
+.bg-surface {
+  transition: background-color 300ms var(--ease-out), border-color 300ms var(--ease-out), color 300ms var(--ease-out), text-decoration-color 300ms var(--ease-out);
 }
 
 html {
