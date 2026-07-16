@@ -32,7 +32,6 @@ const PROJECTS = [
     description:
       'Undergraduate research modeling superconductivity with Python and Monte Carlo simulations — using the Metropolis algorithm to study energy states and phase transitions.',
     tags: ['Python', 'Monte Carlo', 'Data analysis'],
-    ctaLabel: 'Explore',
   },
   {
     href: '/projects/arsenal-led',
@@ -44,7 +43,6 @@ const PROJECTS = [
     description:
       'A smart-home system that controls an Arsenal LED sign from a Garmin Fenix 5 watch, via a virtual machine and Home Assistant webhooks.',
     tags: ['Nabu Casa', 'UTM VM', 'Home Assistant'],
-    ctaLabel: 'Explore',
   },
   {
     href: '/projects/spaceship-battle',
@@ -56,17 +54,6 @@ const PROJECTS = [
     description:
       'A command-line space battle game in C using pointer arithmetic, inspired by Battleship. Play against a computer with a targeted shooting strategy — playable in the browser.',
     tags: ['C'],
-    ctaLabel: 'Live demo',
-    extraLinks: (
-      <a
-        href="https://github.com/alexkociubinski/TigerHacks-Fall-2025-Space-Ship-Battle-"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-muted hover:text-accent transition-colors"
-      >
-        GitHub →
-      </a>
-    ),
   },
 ] as const;
 
@@ -236,7 +223,7 @@ function Projects() {
   return (
     <section className="max-w-4xl mx-auto px-6">
       <SectionHeading id="projects">Projects</SectionHeading>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {PROJECTS.map((project) => (
           <ProjectCard key={project.href} {...project} />
         ))}

@@ -5,6 +5,8 @@
 
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ---- Design tokens (Tailwind v4 @theme — source of truth, mirrors design.md) ---- */
 @theme {
   /* colour — warm-neutral paper, darker gold/bronze accent */

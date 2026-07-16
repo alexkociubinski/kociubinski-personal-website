@@ -1,14 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { ReactNode } from "react";
-import { TagList } from "./Tag";
 
 /**
- * Card for the projects grid. Image header, title, short description,
- * year, and monospace tech tags. The card is a div (not a link) so an
- * optional `extraLinks` (e.g. GitHub) sits alongside the main link
- * without nesting <a> tags. Hover = border-color shift only (no scale on
- * the card); the image may zoom inside the card.
+ * Builds-style project card — full-bleed 16:9 image with layered overlays.
+ * Default state: faded image + gradient/blur with title, description, and year.
+ * Hover state: image reveals, text fades, tech tags appear at bottom.
+ * The entire card is a single <Link> (no nested interactive elements).
+ *
+ * Inspired by https://www.johnathanmo.com/ "Builds" section.
  */
 export default function ProjectCard({
   href,
@@ -19,8 +18,6 @@ export default function ProjectCard({
   year,
   description,
   tags,
-  ctaLabel = "Explore",
-  extraLinks,
 }: {
   href: string;
   image: string;
@@ -30,42 +27,56 @@ export default function ProjectCard({
   year: string;
   description: string;
   tags: readonly string[];
-  ctaLabel?: string;
-  extraLinks?: ReactNode;
 }) {
   return (
-    <div className="group rounded-xl border border-border bg-surface overflow-hidden transition-colors duration-200 hover:border-accent/50">
-      <Link href={href} className="block relative h-44 overflow-hidden">
+    <Link href={href} className="block">
+      <div className="group relative w-full aspect-[16/9] rounded-xl overflow-hidden border border-border bg-surface">
+        {/* Background image — faded by default, reveals on hover */}
         <Image
           src={image}
           alt={imageAlt}
           fill
-          className={`object-cover ${imagePosition} group-hover:scale-105 transition-transform duration-500`}
+          className={`object-cover ${imagePosition} opacity-30 dark:opacity-20 transition-opacity duration-300 group-hover:opacity-80 dark:group-hover:opacity-60`}
           sizes="(max-width: 768px) 100vw, 50vw"
         />
-      </Link>
-      <div className="p-5">
-        <div className="flex items-baseline justify-between gap-3 mb-2">
-          <Link
-            href={href}
-            className="text-lg font-bold tracking-tight text-text group-hover:text-accent transition-colors"
-          >
-            {title}
-          </Link>
-          <span className="nums font-mono text-sm text-muted shrink-0">{year}</span>
+
+        {/* Gradient overlay — fades on hover */}
+        <div className="absolute inset-0 bg-gradient-to-b from-bg/90 via-bg/60 to-bg/20 transition-opacity duration-300 group-hover:opacity-40" />
+
+        {/* Backdrop blur on upper portion — disappears on hover */}
+        <div className="absolute inset-0 backdrop-blur-md [mask-image:linear-gradient(to_bottom,black_30%,transparent_70%)] transition-opacity duration-300 group-hover:opacity-0" />
+
+        {/* Content overlay — visible by default, hidden on hover */}
+        <div className="relative z-10 h-full flex flex-col justify-between p-4 transition-opacity duration-300 group-hover:opacity-0">
+          <div>
+            <h3 className="font-bold text-text text-base leading-tight">
+              {title}
+            </h3>
+            <p className="text-sm text-muted mt-1 line-clamp-2">
+              {description}
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-1.5">
+            <span className="nums font-mono text-xs px-2 py-1 rounded-md bg-bg/80 backdrop-blur-sm text-text/80 border border-border/50">
+              {year}
+            </span>
+          </div>
         </div>
-        <p className="text-muted text-sm leading-relaxed mb-4">{description}</p>
-        <TagList items={tags} />
-        <div className="mt-4 flex gap-4 items-center whitespace-nowrap">
-          <Link
-            href={href}
-            className="text-accent hover:underline underline-offset-4"
-          >
-            {ctaLabel} →
-          </Link>
-          {extraLinks}
+
+        {/* Tech tags — hidden by default, revealed on hover */}
+        <div className="absolute bottom-0 left-0 right-0 z-20 p-4 pt-8 bg-gradient-to-t from-bg/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+          <div className="flex flex-wrap gap-1.5">
+            {tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-xs px-2 py-0.5 rounded-full bg-bg/60 text-text/80 backdrop-blur-sm border border-border/40"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
