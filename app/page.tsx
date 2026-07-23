@@ -23,6 +23,16 @@ const SKILLS = [
 
 const PROJECTS = [
   {
+    href: 'https://tonetta.ai',
+    image: '/TonettaScreenShot.png',
+    imageAlt: 'Tonetta.ai — real-time AI voice changer for sales calls',
+    imagePosition: 'object-center',
+    title: 'Tonetta.ai',
+    description:
+      'Real-time AI voice changer for sales calls. Works like autotune. Makes you sound more confident and calm on all your calls.',
+    tags: ['AI', 'Voice', 'Real-time'],
+  },
+  {
     href: '/projects/superconductivity',
     image: '/metropolisalg.png',
     imageAlt: 'Metropolis algorithm visualization',
@@ -31,6 +41,15 @@ const PROJECTS = [
     description:
       'Undergraduate research modeling superconductivity with Python and Monte Carlo simulations — using the Metropolis algorithm to study energy states and phase transitions.',
     tags: ['Python', 'Monte Carlo', 'Data analysis'],
+  },
+  {
+    href: 'https://playnodle.vercel.app',
+    image: '/NodleScreenShot.png',
+    imageAlt: 'Nodle — code-free interview prep as games',
+    imagePosition: 'object-center',
+    title: 'Nodle',
+    description: 'Code-free interview prep as games.',
+    tags: ['Education', 'Gamification'],
   },
   {
     href: '/projects/arsenal-led',
@@ -116,7 +135,7 @@ function NavBar() {
 function Hero() {
   const downloadResume = () => {
     const link = document.createElement('a');
-    link.href = '/resume.pdf';
+    link.href = '/Alex_Kociubinski_Resume.pdf';
     link.download = 'Alex_Kociubinski_Resume.pdf';
     document.body.appendChild(link);
     link.click();
@@ -128,7 +147,7 @@ function Hero() {
       <div className="flex items-center gap-5 mb-10 animate-fade-up">
         <div className="relative w-16 h-16 rounded-full overflow-hidden border border-border shrink-0">
           <Image
-            src="/headshot.jpeg"
+            src="/Headshot.jpeg"
             alt="Alex Kociubinski"
             fill
             className="object-cover"
@@ -232,7 +251,7 @@ function Projects() {
 function Contact() {
   const downloadResume = () => {
     const link = document.createElement('a');
-    link.href = '/resume.pdf';
+    link.href = '/Alex_Kociubinski_Resume.pdf';
     link.download = 'Alex_Kociubinski_Resume.pdf';
     document.body.appendChild(link);
     link.click();
