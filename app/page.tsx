@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Download, Mail, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { GithubIcon, LinkedinIcon } from './components/icons';
+import { GithubIcon, LinkedinIcon, InstagramIcon, TiktokIcon } from './components/icons';
 import SocialLink from './components/SocialLink';
 import SectionHeading from './components/SectionHeading';
 import ProjectCard from './components/ProjectCard';
@@ -268,8 +268,27 @@ function Contact() {
         </button>
       </div>
 
-      <footer className="mt-16 pt-6 border-t border-border font-mono text-sm text-muted nums">
-        © {new Date().getFullYear()} Alex Kociubinski
+      <footer className="mt-16 pt-6 border-t border-border flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 text-muted">
+        <div className="font-mono text-sm nums">
+          © {new Date().getFullYear()} Alex Kociubinski
+        </div>
+        <div className="text-sm sm:text-right max-w-sm">
+          <p className="mb-3 italic">
+            Unrelated, I'm a DJ. Check out my mixes:
+          </p>
+          <div className="flex flex-wrap gap-4 sm:justify-end">
+            <SocialLink
+              href="https://www.instagram.com/djak_spinz/"
+              label="instagram"
+              icon={<InstagramIcon size={18} />}
+            />
+            <SocialLink
+              href="https://www.tiktok.com/@djak_spinz"
+              label="tiktok"
+              icon={<TiktokIcon size={18} />}
+            />
+          </div>
+        </div>
       </footer>
     </section>
   );
