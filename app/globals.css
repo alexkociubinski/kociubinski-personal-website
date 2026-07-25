@@ -7,9 +7,9 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ---- Design tokens (Tailwind v4 @theme — source of truth, mirrors design.md) ---- */
+/* ---- Design tokens (Tailwind v4 @theme - source of truth, mirrors design.md) ---- */
 @theme {
-  /* colour — warm-neutral paper, darker gold/bronze accent */
+  /* colour - warm-neutral paper, darker gold/bronze accent */
   --color-bg: oklch(98% 0.004 75);
   --color-surface: oklch(95% 0.005 75);
   --color-border: oklch(86% 0.006 75);
@@ -19,7 +19,7 @@
   --color-accent-ink: oklch(98% 0.004 75);
   --color-focus: oklch(50% 0.14 75);
 
-  /* fonts — Geist display/body + Geist Mono outlier (next/font) */
+  /* fonts - Geist display/body + Geist Mono outlier (next/font) */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
@@ -90,7 +90,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* display headline wrapping — long words/emails never overflow */
+/* display headline wrapping - long words/emails never overflow */
 h1, h2 {
   overflow-wrap: anywhere;
   min-width: 0;

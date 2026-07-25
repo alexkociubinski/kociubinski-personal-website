@@ -1,7 +1,7 @@
 import React from "react";
 
 /**
- * Inline social/profile link — icon + label, gold on hover.
+ * Inline social/profile link - icon + label, gold on hover.
  * Typographic-link CTA voice (Long Document): no button, no fill.
  * `whitespace-nowrap` keeps the label on one line at every width (gate 49).
  */

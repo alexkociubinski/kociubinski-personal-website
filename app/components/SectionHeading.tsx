@@ -1,7 +1,7 @@
 import React from "react";
 
 /**
- * Long Document section head — a hairline rule above a bold short heading,
+ * Long Document section head - a hairline rule above a bold short heading,
  * stacked single-column (never the tag-left / header-right two-column tell).
  * `id` enables navbar anchor scrolling; `scroll-mt` offsets the sticky nav.
  */

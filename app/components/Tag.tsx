@@ -1,7 +1,7 @@
 import React from "react";
 
 /**
- * Plain monospace tech tag — replaces the old colored pill style.
+ * Plain monospace tech tag - replaces the old colored pill style.
  * Used on the projects grid and project detail pages.
  */
 export default function Tag({ children }: { children: React.ReactNode }) {

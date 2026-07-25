@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 /**
- * Builds-style project card — full-bleed 16:9 image with layered overlays.
+ * Builds-style project card - full-bleed 16:9 image with layered overlays.
  * Default state: faded image + gradient/blur with title and description.
  * Hover state: image reveals, text fades, tech tags appear at bottom.
  * The entire card is a single clickable element (no nested interactive children).
@@ -32,7 +32,7 @@ export default function ProjectCard({
   const isExternal = href.startsWith("http");
   const inner = (
     <div className="group relative w-full aspect-[16/9] rounded-xl overflow-hidden border border-border bg-surface">
-      {/* Background image — faded by default, reveals on hover */}
+      {/* Background image - faded by default, reveals on hover */}
       <Image
         src={image}
         alt={imageAlt}
@@ -41,13 +41,13 @@ export default function ProjectCard({
         sizes="(max-width: 768px) 100vw, 50vw"
       />
 
-      {/* Gradient overlay — fades on hover */}
+      {/* Gradient overlay - fades on hover */}
       <div className="absolute inset-0 bg-gradient-to-b from-bg/90 via-bg/60 to-bg/20 transition-opacity duration-300 group-hover:opacity-40" />
 
-      {/* Backdrop blur on upper portion — disappears on hover */}
+      {/* Backdrop blur on upper portion - disappears on hover */}
       <div className="absolute inset-0 backdrop-blur-md [mask-image:linear-gradient(to_bottom,black_30%,transparent_70%)] transition-opacity duration-300 group-hover:opacity-0" />
 
-      {/* Content overlay — visible by default, hidden on hover */}
+      {/* Content overlay - visible by default, hidden on hover */}
       <div className="relative z-10 h-full flex flex-col p-4 transition-opacity duration-300 group-hover:opacity-0">
         <h3 className="font-bold text-text text-base leading-tight inline-flex items-baseline gap-1">
           <span>{title}</span>
@@ -64,7 +64,7 @@ export default function ProjectCard({
         </p>
       </div>
 
-      {/* Tech tags — hidden by default, revealed on hover */}
+      {/* Tech tags - hidden by default, revealed on hover */}
       <div className="absolute bottom-0 left-0 right-0 z-20 p-4 pt-8 bg-gradient-to-t from-bg/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200">
         <div className="flex flex-wrap gap-1.5">
           {tags.map((tag) => (

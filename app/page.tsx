@@ -15,17 +15,12 @@ const NAV_LINKS = [
   { href: '#contact', label: 'Contact' },
 ] as const;
 
-const SKILLS = [
-  { group: 'Languages', items: ['Python', 'C', 'TypeScript', 'Java', 'Dart'] },
-  { group: 'Trading', items: ['Quantitative analysis', 'Algorithm development', 'Risk management'] },
-  { group: 'Tools', items: ['Next.js', 'React', 'Flutter', 'pandas', 'Git'] },
-] as const;
 
 const PROJECTS = [
   {
     href: 'https://tonetta.ai',
     image: '/TonettaScreenShot.png',
-    imageAlt: 'Tonetta.ai — real-time AI voice changer for sales calls',
+    imageAlt: 'Tonetta.ai - real-time AI voice changer for sales calls',
     imagePosition: 'object-center',
     title: 'Tonetta.ai',
     description:
@@ -39,13 +34,13 @@ const PROJECTS = [
     imagePosition: 'object-[70%_60%]',
     title: 'Monte Carlo Superconductivity Research',
     description:
-      'Undergraduate research modeling superconductivity with Python and Monte Carlo simulations — using the Metropolis algorithm to study energy states and phase transitions.',
+      'Undergraduate research modeling superconductivity with Python and Monte Carlo simulations - using the Metropolis algorithm to study energy states and phase transitions.',
     tags: ['Python', 'Monte Carlo', 'Data analysis'],
   },
   {
     href: 'https://playnodle.vercel.app',
     image: '/NodleScreenShot.png',
-    imageAlt: 'Nodle — code-free interview prep as games',
+    imageAlt: 'Nodle - code-free interview prep as games',
     imagePosition: 'object-center',
     title: 'Nodle',
     description: 'Code-free interview prep as games.',
@@ -68,7 +63,7 @@ const PROJECTS = [
     imagePosition: 'object-[70%_50%]',
     title: 'Space Ship Battle',
     description:
-      'A command-line space battle game in C using pointer arithmetic, inspired by Battleship. Play against a computer with a targeted shooting strategy — playable in the browser.',
+      'A command-line space battle game in C using pointer arithmetic, inspired by Battleship. Play against a computer with a targeted shooting strategy - playable in the browser.',
     tags: ['C'],
   },
 ] as const;
@@ -161,9 +156,10 @@ function Hero() {
         Hi, I’m Alex Kociubinski
       </h1>
       <p className="text-lg text-muted max-w-2xl leading-relaxed mb-8 animate-fade-up">
-        Computer Science &amp; Mathematics dual major at the University of
-        Missouri. Interested in quantitative finance, algorithmic trading, and
-        building things that mix data and strategy.
+        I'm a computer science and mathematics student at the University of
+        Missouri. I love building software that solves real problems, from sales
+        autotune to interview games. Interested in quantitative finance and
+        software engineering.
       </p>
 
       <div className="flex flex-wrap items-center gap-x-6 gap-y-3 animate-fade-up">
@@ -200,36 +196,18 @@ function About() {
       <SectionHeading id="about">About</SectionHeading>
       <div className="space-y-4 text-lg leading-relaxed text-muted max-w-2xl">
         <p>
-          I’m a developer and student interested in{' '}
+          I'm a developer and student interested in{' '}
           <span className="text-text">quantitative finance</span> and{' '}
           <span className="text-text">algorithmic trading</span>. I like working
-          on projects that mix data and strategy, and help people. At Mizzou, I’m
-          part of <span className="text-text">TigerQuant</span> and the{' '}
-          <span className="text-text">Mizzou Computing Association</span>.
+          on projects that mix data and strategy. Currently developing and
+          backtesting strategies with <span className="text-text">TigerQuant</span>{' '}
+          and building systems with <span className="text-text">Mizzou Robotics ML/AI</span>.
         </p>
         <p>
-          Outside of coding, I spend my time working out, running with the Mizzou
-          Club Running Team, doing marathons, and watching sports — especially
-          football and soccer. I’m a Seattle Seahawks and an Arsenal fan,
-          unfortunately.
+          Outside of coding, I chase Marathon PRs and dial in my espresso. I also
+          love rock climbing and DJing. I follow football and futbol as a Seahawks
+          and Arsenal fan.
         </p>
-      </div>
-
-      {/* Skills — monospace, grouped, real separators (not concatenated) */}
-      <div className="mt-10 space-y-2.5 max-w-2xl">
-        {SKILLS.map((row) => (
-          <div
-            key={row.group}
-            className="flex flex-col sm:flex-row sm:gap-4 sm:items-baseline"
-          >
-            <span className="nums font-mono text-sm text-text w-28 shrink-0">
-              {row.group}
-            </span>
-            <span className="font-mono text-sm text-muted">
-              {row.items.join(' · ')}
-            </span>
-          </div>
-        ))}
       </div>
     </section>
   );
@@ -262,7 +240,7 @@ function Contact() {
     <section className="max-w-4xl mx-auto px-6 mb-24">
       <SectionHeading id="contact">Contact</SectionHeading>
       <p className="text-lg text-muted max-w-2xl mb-6 leading-relaxed">
-        Feel free to reach out — about a project, an opportunity, or just to
+        Feel free to reach out - about a project, an opportunity, or just to
         chat.
       </p>
       <div className="flex flex-wrap items-center gap-x-6 gap-y-3">

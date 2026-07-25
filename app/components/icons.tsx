@@ -1,4 +1,4 @@
-// Custom brand icons — lucide-react's brand icons are deprecated, so we
+// Custom brand icons - lucide-react's brand icons are deprecated, so we
 // keep these inline SVGs (originally defined in app/page.tsx).
 
 export const GithubIcon = ({ size = 24 }: { size?: number }) => (
