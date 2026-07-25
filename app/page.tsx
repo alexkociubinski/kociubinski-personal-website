@@ -25,7 +25,7 @@ const PROJECTS = [
     title: 'Tonetta.ai',
     description:
       'Real-time AI voice changer for sales calls. Works like autotune. Makes you sound more confident and calm on all your calls.',
-    tags: ['AI', 'Voice', 'Real-time'],
+    tags: ['Electron', 'Python', 'Supabase', 'Next.js'],
   },
   {
     href: '/projects/superconductivity',
@@ -44,7 +44,7 @@ const PROJECTS = [
     imagePosition: 'object-center',
     title: 'Nodle',
     description: 'Code-free interview prep as games.',
-    tags: ['Education', 'Gamification'],
+    tags: ['Next.js', 'Supabase'],
   },
   {
     href: '/projects/arsenal-led',
